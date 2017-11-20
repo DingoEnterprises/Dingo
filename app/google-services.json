@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1024693863425",
+    "firebase_url": "https://dingo-eb8b3.firebaseio.com",
+    "project_id": "dingo-eb8b3",
+    "storage_bucket": "dingo-eb8b3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1024693863425:android:e0cb93b5ad9b1dbb",
+        "android_client_info": {
+          "package_name": "com.example.dingo.dingoapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1024693863425-8muvls9fonecd750kjpq5jj2mlq1nhgd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dingo.dingoapp",
+            "certificate_hash": "3300e76f296b0e1035cf859762de6862ef681098"
+          }
+        },
+        {
+          "client_id": "1024693863425-0ukh7qivcfg65h8gag21jfht5fu1u0fu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAV77oz2HhTTBOeIWM0cLxJILoba6MGuYw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1024693863425-0ukh7qivcfg65h8gag21jfht5fu1u0fu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
