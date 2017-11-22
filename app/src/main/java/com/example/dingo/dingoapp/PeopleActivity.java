@@ -11,6 +11,7 @@ public class PeopleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_people);
 
+
         public void onItemClick(AdapterView.OnItemClickListener()){
             startActivity(new Intent(Users.this, Chat.class));
     }
