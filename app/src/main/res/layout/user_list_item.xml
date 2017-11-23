@@ -31,4 +31,6 @@
         android:paddingRight="10dp"
         android:paddingTop="25dp"
         app:srcCompat="@drawable/messagebox" />
+
+
 </LinearLayout>
