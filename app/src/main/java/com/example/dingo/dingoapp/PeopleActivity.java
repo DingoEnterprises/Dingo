@@ -1,5 +1,6 @@
 package com.example.dingo.dingoapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -28,11 +30,16 @@ public class PeopleActivity extends AppCompatActivity {
     ListView usersList;
     TextView noUsersText;
     int numUsers;
+    ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_people);
+
+        dialog = new ProgressDialog(PeopleActivity.this);
+        dialog.setMessage("Loading...");
+        dialog.show();
 
         String url = "https://dingo-eb8b3.firebaseio.com/";
         StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>(){
@@ -50,10 +57,13 @@ public class PeopleActivity extends AppCompatActivity {
         RequestQueue reqQ = Volley.newRequestQueue(PeopleActivity.this);
         reqQ.add(request);
 
-        public void onItemClick(AdapterView parent, View view, int position, long id) {
+        usersList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
+        public void onItemClick(AdapterView parent, View view, int position, long id) {
+            UserInfo.chatWith = array.get(position);
             startActivity(new Intent(PeopleActivity.this, Chat.class));
-    });
+        }
+        });
 }
     public void doOnSuccess(String s){
         try{
@@ -82,6 +92,8 @@ public class PeopleActivity extends AppCompatActivity {
             usersList.setVisibility(View.VISIBLE);
             usersList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, array));
         }
+
+        dialog.dismiss();
 
     }
 }
