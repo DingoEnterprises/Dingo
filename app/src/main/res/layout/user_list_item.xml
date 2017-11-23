@@ -12,36 +12,15 @@
             android:layout_height="120dp"
             android:layout_gravity="left"
             android:paddingLeft="10dp"
-            app:srcCompat="@drawable/myAvatar" />
-
-    <LinearLayout
-        android:layout_width="149dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingTop="20dp">
-
+            app:srcCompat="@drawable/a3" />
 
         <TextView
             android:id="@+id/AllocatedTasks"
             android:layout_width="115dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/User"
-            android:layout_width="115dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/NextTask"
-            android:layout_width="115dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="TextView" />
-    </LinearLayout>
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="Joseph Blues" />
 
     <ImageView
         android:id="@+id/Action"
@@ -51,5 +30,5 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingTop="25dp"
-        app:srcCompat="@drawable/messageBox" />
+        app:srcCompat="@drawable/messagebox" />
 </LinearLayout>
