@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Spinner;
 
 
 public class MainTaskActivity extends AppCompatActivity {
@@ -22,7 +23,6 @@ public class MainTaskActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Current"));
         tabLayout.addTab(tabLayout.newTab().setText("Past"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final FixedTabsPagerAdapter adapter = new FixedTabsPagerAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
