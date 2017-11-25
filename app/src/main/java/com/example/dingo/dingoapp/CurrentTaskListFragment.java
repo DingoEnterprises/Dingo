@@ -1,11 +1,29 @@
 package com.example.dingo.dingoapp;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 public class CurrentTaskListFragment extends Fragment {
 
     @Override
@@ -35,36 +53,16 @@ public class CurrentTaskListFragment extends Fragment {
 
     //MAIN ACTIVITY
 
-    import android.support.v7.app.AlertDialog;
-    import android.support.v7.app.AppCompatActivity;
-    import android.os.Bundle;
 
-    import android.text.TextUtils;
-    import android.view.LayoutInflater;
-    import android.view.View;
 
-    import android.widget.AdapterView;
-    import android.widget.Button;
-    import android.widget.EditText;
-    import android.widget.ListView;
-    import android.widget.Toast;
 
-    import java.util.ArrayList;
-    import java.util.List;
-    import com.google.firebase.database.DataSnapshot;
-    import com.google.firebase.database.DatabaseError;
-    import com.google.firebase.database.DatabaseReference;
-    import com.google.firebase.database.FirebaseDatabase;
-    import com.google.firebase.database.ValueEventListener;
-
-        public class MainActivity extends AppCompatActivity {
 
             EditText editTextName;
             EditText editTextPrice;
             Button buttonAddProduct;
             ListView listViewProducts;
             DatabaseReference databaseProducts;
-            List<Product> products;
+            List<Product> Tasks;
 
             @Override
             protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +74,7 @@ public class CurrentTaskListFragment extends Fragment {
                 listViewProducts = (ListView) findViewById(R.id.listViewProducts);
                 buttonAddProduct = (Button) findViewById(R.id.addButton);
 
-                products = new ArrayList<>();
+                tasks = new ArrayList<>();
 
                 //adding an onclicklistener to button
                 buttonAddProduct.setOnClickListener(new View.OnClickListener() {
@@ -192,92 +190,5 @@ public class CurrentTaskListFragment extends Fragment {
 
         //TASK
 
-        public class Task {
-            private String taskID;
-            private String taskName;
-            private String taskDescription;
-            private String taskStatus; //enumeration: late, notStarted, complete, inProgess
-            private String taskDueDate;
 
-            public Task() {}
-
-            //For the Database
-            public Task(String id, String name, String description, String dueDate) {
-                taskID = id;
-                taskName = name;
-                taskDescription = description;
-                taskDueDate = dueDate;
-            }
-
-            //For the Users
-            public Task(String name, String description, String dueDate) {
-                taskName = name;
-                taskDescription = description;
-                taskDueDate = dueDate;
-            }
-
-            //Setters and Getters
-            public void setId(String id) {taskID = id;}
-            public String getId(){return taskID;}
-
-            public void setTaskName(String name) {taskName = name;}
-            public String getTaskName() {return taskName;}
-
-            public void setTaskDescription(String description) {taskDescription = description;}
-            public String getTaskDecription() {return taskDescription;}
-
-            public void setTaskDueDate(String dueDate) {taskDueDate = dueDate;}
-            public String getTaskDueDate(){return taskDueDate;}
-
-        //TASK LIST
-
-        import android.app.Activity;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.ArrayAdapter;
-        import android.widget.TextView;
-        import java.util.List;
-
-        public class TaskList extends ArrayAdapter<Task> {
-            private Activity context;
-            List<Task> tasks;
-
-            public TaskList(Activity context, List<Task> tasks) {
-                super(context, R.layout.layout_current_task_list, tasks);
-                this.context = context;
-                this.currentTasks = tasks;
-            }
-
-            public TaskList(Activity context, List<Task> tasks) {
-                super(context, R.layout.layout_past_task_list, tasks);
-                this.context = context;
-                this.pastTasks = tasks;
-            }
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                LayoutInflater inflater = context.getLayoutInflater();
-                View listViewItem = inflater.inflate(R.layout.layout_product_list, null, true);
-
-                TextView textViewName = (TextView) listViewItem.findViewById(R.id.textViewName);
-                TextView textViewDescription = (TextView) listViewItem.findViewById(R.id.textViewDescription);
-                TextView textViewDueDate = (TextView) listViewItem.findViewById(R.id.textViewDueDate);
-
-                Task task = tasks.get(position);
-                textViewName.setText(task.getTaskName());
-                textViewDescription.setText(task.getTaskDecription());
-                textViewDueDate.setText(task.getTaskDueDate());
-                return listViewItem;
-            }
-        }
-
-
-
-
-
-
-    //End
-
-    }
 }
