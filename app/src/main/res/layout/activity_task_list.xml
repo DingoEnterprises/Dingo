@@ -30,8 +30,8 @@
                 android:layout_height="50dp"
                 android:background="@null"
 
-                android:src="@drawable/icarrowback"
-                app:srcCompat="?android:attr/homeAsUpIndicator" />
+                android:src="@drawable/menuicon"
+                app:srcCompat="@drawable/menuicon" />
 
             <LinearLayout
                 android:layout_width="match_parent"
