@@ -64,7 +64,27 @@
                         android:layout_height="50dp"
                         android:background="@null"
                         android:layout_gravity="right"
-                        android:src="@drawable/checkicon"
+
+                        app:srcCompat="@drawable/undoicon" />
+
+                    <ImageButton
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="right"
+                        android:background="@null"
+
+                        app:srcCompat="@drawable/redoicon" />
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <ImageButton
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@null"
+                        android:layout_gravity="right"
+
                         app:srcCompat="@drawable/checkicon" />
 
                     <ImageButton
@@ -72,7 +92,7 @@
                         android:layout_height="50dp"
                         android:layout_gravity="right"
                         android:background="@null"
-                        android:src="@drawable/whitetrashicon"
+
                         app:srcCompat="@drawable/whitetrashicon" />
                 </LinearLayout>
 
@@ -112,27 +132,24 @@
                 android:inputType="date" />
         </LinearLayout>
 
-        <QuickContactBadge
-            android:id="@+id/quickContactBadge2"
-            android:layout_width="168dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:clickable="true"
-            app:srcCompat="@drawable/a1" />
+            android:orientation="horizontal">
+            <QuickContactBadge
+                android:id="@+id/quickContactBadge2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:clickable="false"
+                app:srcCompat="@drawable/a1" />
+        </LinearLayout>
 
     </LinearLayout>
-
-
-
-    <EditText
-        android:id="@+id/editText4"
+    <Space
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Description"
-        android:inputType="textLongMessage" />
-
+        android:layout_height="20dp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -159,6 +176,38 @@
             android:entries="@array/array_name"
             android:textSize="20dp" />
     </LinearLayout>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="15dp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="25dp" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="2dp"
+        android:fillViewport="true">
+        <EditText
+            android:id="@+id/editText4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="top"
+            android:hint="Description"
+            android:textSize="25dp"
+            android:inputType="textMultiLine" />
+    </ScrollView>
+
+
+
+
 
 
 

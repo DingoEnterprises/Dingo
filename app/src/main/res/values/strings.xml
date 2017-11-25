@@ -21,4 +21,13 @@
         <item>In Progress</item>
         <item>Complete</item>
     </string-array>
+    <string name="status_name1" >
+        Not Started
+    </string>
+    <string name="status_name2" >
+        In Progress
+    </string>
+    <string name="status_name3" >
+        Completed
+    </string>
 </resources>
