@@ -37,6 +37,9 @@ public class PeopleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_people);
 
+        usersList = (ListView) findViewById(R.id.usersList);
+        noUsersText = (TextView) findViewById(R.id.noUsersText);
+
         dialog = new ProgressDialog(PeopleActivity.this);
         dialog.setMessage("Loading...");
         dialog.show();
