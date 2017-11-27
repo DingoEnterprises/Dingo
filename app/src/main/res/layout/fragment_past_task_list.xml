@@ -2,16 +2,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.dingo.dingoapp.PastTaskListFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Past Task List"
-        android:layout_centerInParent="true"
-        android:textSize="30dp">
+        android:text="Click on each task to view more details"
+        android:textAlignment="center"
+        />
 
-    </TextView>
+    <ListView
+        android:id="@+id/listViewtasks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView">
+    </ListView>
 
 </RelativeLayout>

@@ -2,27 +2,26 @@ package com.example.dingo.dingoapp;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-/**
- * Created by Tair on 11/22/2017.
- */
+public class FixedTabsPagerAdapter extends FragmentStatePagerAdapter {
+    int mNumOfTabs;
 
-public class FixedTabsPagerAdapter extends FragmentStatePagerAdapter{
-
-
-    public FixedTabsPagerAdapter(FragmentManager fm) {
+    public FixedTabsPagerAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
+        this.mNumOfTabs = NumOfTabs;
     }
 
     @Override
     public Fragment getItem(int position) {
-        switch(position) {
+
+        switch (position) {
             case 0:
-                return new CurrentTaskListFragment();
+                CurrentTaskListFragment currentTaskList = new CurrentTaskListFragment();
+                return currentTaskList;
             case 1:
-                return new PastTaskListFragment();
+                PastTaskListFragment pastTaskListFragment = new PastTaskListFragment();
+                return pastTaskListFragment;
             default:
                 return null;
         }
@@ -30,17 +29,6 @@ public class FixedTabsPagerAdapter extends FragmentStatePagerAdapter{
 
     @Override
     public int getCount() {
-        return 2;
-    }
-    @Override
-    public CharSequence getPageTitle(int position) {
-        switch(position) {
-            case 0:
-                return "Task List";
-            case 1:
-                return "Task List";
-            default:
-                return null;
-        }
+        return mNumOfTabs;
     }
 }
