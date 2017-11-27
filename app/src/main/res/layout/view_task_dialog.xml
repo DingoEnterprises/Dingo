@@ -60,14 +60,16 @@
                         android:layout_weight="1" />
 
                     <ImageButton
+                        android:id="@+id/buttonEdit"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:background="@null"
                         android:layout_gravity="right"
+                        android:background="@null"
                         android:src="@drawable/editicon"
                         app:srcCompat="@drawable/editicon" />
 
                     <ImageButton
+                        android:id="@+id/buttonRemove"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="right"
