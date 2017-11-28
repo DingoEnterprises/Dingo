@@ -44,12 +44,10 @@ public class MainTaskActivity extends Activity {
         setContentView(R.layout.activity_task_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setActionBar(toolbar);
-        databaseTasks = FirebaseDatabase.getInstance().getReference("tasks");
         addTaskButton = (FloatingActionButton) findViewById(R.id.addTaskButton);
         addTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CurrentTaskActivity taskActivity = new CurrentTaskActivity();
                 createTask();
             }
         });
@@ -58,6 +56,7 @@ public class MainTaskActivity extends Activity {
         tabLayout.addTab(tabLayout.newTab().setText("Past"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        databaseTasks = FirebaseDatabase.getInstance().getReference("tasks");
         final FixedTabsPagerAdapter adapter = new FixedTabsPagerAdapter
                 (getFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
@@ -79,9 +78,7 @@ public class MainTaskActivity extends Activity {
 
             }
         });
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -237,8 +234,6 @@ public class MainTaskActivity extends Activity {
                     String id = databaseTasks.getKey();
                     Task task = new Task(id, title, description, dueDate, 1);
                     databaseTasks.child(id).setValue(task);
-                    CurrentTaskActivity taskActivity = new CurrentTaskActivity();
-                    taskActivity.onStart();
                     b.dismiss();
                     // Toast.makeText(this, "Product added", Toast.LENGTH_LONG).show();
                 }else {
