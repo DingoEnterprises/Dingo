@@ -1,16 +1,19 @@
 package com.example.dingo.dingoapp;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.app.Fragment;
+import android.app.FragmentManager;
 
-public class FixedTabsPagerAdapter extends FragmentStatePagerAdapter {
+
+import android.support.v13.app.FragmentPagerAdapter;
+
+public class FixedTabsPagerAdapter extends FragmentPagerAdapter {
     int mNumOfTabs;
 
     public FixedTabsPagerAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
     }
+
 
     @Override
     public Fragment getItem(int position) {

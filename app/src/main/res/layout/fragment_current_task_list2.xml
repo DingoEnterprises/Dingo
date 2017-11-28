@@ -15,17 +15,6 @@
         />
 
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/addTaskButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="20dp"
-        android:clickable="true"
-        android:src="@drawable/addtask" />
-
     <ListView
         android:id="@+id/listViewTasks"
         android:layout_width="wrap_content"
