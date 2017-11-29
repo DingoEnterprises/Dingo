@@ -11,6 +11,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toolbar;
@@ -26,15 +27,20 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
 public class MainTaskActivity extends Activity {
     FloatingActionButton addTaskButton;
-    ListView listViewTasks;
+    ListView listViewTasks ;
     DatabaseReference databaseTasks;
     List<Task> tasks;
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -51,6 +57,9 @@ public class MainTaskActivity extends Activity {
                 createTask();
             }
         });
+
+
+
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Current"));
         tabLayout.addTab(tabLayout.newTab().setText("Past"));
@@ -78,6 +87,7 @@ public class MainTaskActivity extends Activity {
 
             }
         });
+        pullFromDatabase();
     }
 
     @Override
@@ -90,6 +100,12 @@ public class MainTaskActivity extends Activity {
         int id = item.getItemId();
 
         return super.onOptionsItemSelected(item);
+    }
+    public List<Task> getTasks() {
+        return tasks;
+    }
+    public ListView getListView() {
+        return listViewTasks;
     }
     public void viewTask(final String taskId, String taskTitle) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -265,6 +281,33 @@ public class MainTaskActivity extends Activity {
 
         Toast.makeText(getApplicationContext(), "Products Updated", Toast.LENGTH_LONG).show();
     }
+    public void pullFromDatabase() {
+        databaseTasks = FirebaseDatabase.getInstance().getReference("tasks");
 
+        databaseTasks.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                try {
+                    tasks.clear();
+                }catch (NullPointerException e) {
+                }
+                try {
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        List<Task> taskList = null;
+                        taskList.add(postSnapshot.getValue(Task.class));
+                       // Task task = postSnapshot.getValue(Task.class);
+                       // tasks.add(task);
+                    }
+                }catch(NullPointerException e) {
+                }
 
-}
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+    }
+

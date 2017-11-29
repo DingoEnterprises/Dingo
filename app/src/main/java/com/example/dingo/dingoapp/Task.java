@@ -39,6 +39,7 @@ public class Task {
         taskTitle = title;
         taskDescription = description;
         taskDueDate = dueDate;
+        taskStatusSel = 0;
     }
 
     //Setters and Getters

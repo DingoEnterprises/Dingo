@@ -26,18 +26,20 @@ public class TaskList extends ArrayAdapter<Task> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
-        View listViewItem = inflater.inflate(R.layout.fragment_current_task_list2, null, true);
+        View listViewItem = inflater.inflate(R.layout.layout_task_list, null, true);
 
         TextView textViewTitle = (TextView) listViewItem.findViewById(R.id.textViewTitle);
         TextView textViewDueDate = (TextView) listViewItem.findViewById(R.id.textViewDueDate);
-        TextView textViewStatus = (TextView) listViewItem.findViewById(R.id.textViewStatus);
-        TextView textViewDescription = (TextView) listViewItem.findViewById(R.id.textViewDescription);
+
 
         Task task = tasks.get(position);
-        textViewTitle.setText(task.getTaskTitle());
-        textViewDueDate.setText(String.valueOf(task.getTaskDueDate()));
-        textViewStatus.setText(task.getTaskStatus());
-        textViewDescription.setText(task.getTaskDescription());
+        try {
+            textViewTitle.setText(task.getTaskTitle());
+            textViewDueDate.setText(String.valueOf(task.getTaskDueDate()));
+        }catch (Exception e) {
+            textViewTitle.setText("Working?");
+            textViewDueDate.setText(String.valueOf("Maybe?"));
+        }
         return listViewItem;
     }
 }
