@@ -10,50 +10,42 @@ import android.widget.TextView;
 import java.util.List;
 
 public class Task {
-    private String taskID;
-    private String taskTitle;
-    private String taskDescription;
-    private String[] taskStatus; //enumeration: late, notStarted, complete, inProgess
-    private int taskStatusSel;
-    private String taskDueDate;
+    private String taskid;
+    private String tasktitle;
+    private String taskdescription;
+    private String[] taskstatus; //enumeration: late, notStarted, complete, inProgess
+    private int taskstatussel;
+    private String taskduedate;
 
     public Task() {
     }
     //For the Database
-    public Task(String id, String title, String description, String dueDate, int statusSel) {
-        taskID = id;
-        taskTitle = title;
-        taskDescription = description;
-        taskDueDate = dueDate;
-        taskStatus = new String[4];
-        taskStatus[0] = "Not Started";
-        taskStatus[1] = "In Progress";
-        taskStatus[2] = "Complete";
-        taskStatus[3] = "Late";
-        taskStatusSel = statusSel;
+    public Task(String id, String title, String description, String duedate, int statussel) {
+        taskid = id;
+        tasktitle = title;
+        taskdescription = description;
+        taskduedate = duedate;
+        taskstatus = new String[4];
+        taskstatus[0] = "Not Started";
+        taskstatus[1] = "In Progress";
+        taskstatus[2] = "Complete";
+        taskstatus[3] = "Late";
+        taskstatussel = statussel;
 
     }
 
-    //For the Users
-    public Task(String title, String description, String dueDate) {
-        taskTitle = title;
-        taskDescription = description;
-        taskDueDate = dueDate;
-        taskStatusSel = 0;
-    }
 
     //Setters and Getters
-    public void setId(String id) {taskID = id;}
-    public String getId(){return taskID;}
-
-    public void setTaskTitle(String title) {taskTitle = title;}
-    public String getTaskTitle() {return taskTitle;}
-
-    public void setTaskDescription(String description) {taskDescription = description;}
-    public String getTaskDescription() {return taskDescription;}
-    public String getTaskStatus(){return taskStatus[taskStatusSel];}
-    public void setTaskDueDate(String dueDate) {taskDueDate = dueDate;}
-    public String getTaskDueDate(){return taskDueDate;}
+    public void setTaskid(String id) {taskid = id;}
+    public String getTaskid() {return taskid;}
+    public void setTasktitle(String title) {tasktitle = title;}
+    public String getTasktitle() {return tasktitle;}
+    public void setTaskdescription(String description) {taskdescription = description;}
+    public String getTaskdescription() {return taskdescription;}
+    //public String getTaskstatus(){return taskstatus[taskstatussel];}
+    public int getTaskstatussel() {return taskstatussel;}
+    public void setTaskduedate(String duedate) {taskduedate = duedate;}
+    public String getTaskduedate(){return taskduedate;}
 
 
 

@@ -34,8 +34,8 @@ public class TaskList extends ArrayAdapter<Task> {
 
         Task task = tasks.get(position);
         try {
-            textViewTitle.setText(task.getTaskTitle());
-            textViewDueDate.setText(String.valueOf(task.getTaskDueDate()));
+            textViewTitle.setText(task.getTasktitle());
+            textViewDueDate.setText(String.valueOf(task.getTaskduedate()));
         }catch (Exception e) {
             textViewTitle.setText("Working?");
             textViewDueDate.setText(String.valueOf("Maybe?"));

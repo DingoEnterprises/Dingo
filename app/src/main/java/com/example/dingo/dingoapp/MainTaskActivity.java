@@ -40,9 +40,8 @@ import java.util.List;
 
 public class MainTaskActivity extends Activity {
     FloatingActionButton addTaskButton;
-    ListView listViewTasks ;
     DatabaseReference databaseTasks;
-    List<Task> tasks;
+    TaskList taskAdapter;
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,14 +57,14 @@ public class MainTaskActivity extends Activity {
             }
         });
 
-
-
+        databaseTasks = FirebaseDatabase.getInstance().getReference("tasks");
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Current"));
         tabLayout.addTab(tabLayout.newTab().setText("Past"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        databaseTasks = FirebaseDatabase.getInstance().getReference("tasks");
+
         final FixedTabsPagerAdapter adapter = new FixedTabsPagerAdapter
                 (getFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
@@ -87,7 +86,7 @@ public class MainTaskActivity extends Activity {
 
             }
         });
-        pullFromDatabase();
+
     }
 
     @Override
@@ -101,12 +100,16 @@ public class MainTaskActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-    public List<Task> getTasks() {
-        return tasks;
-    }
-    public ListView getListView() {
-        return listViewTasks;
-    }
+    //public List<Task> getTasks() {
+   //     return tasks;
+   // }
+    //public void addTasks(Task task) {
+   //     tasks.add(task);
+   // }
+    //public void clearTasks() {
+    //    tasks.clear{};
+   // }
+
     public void viewTask(final String taskId, String taskTitle) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -147,8 +150,22 @@ public class MainTaskActivity extends Activity {
     }
     private void updateTask(final String id, String title, final String dueDate, String status, final String description) {
 
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this)
+                .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                }).setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+        System.out.println("Test2");
         LayoutInflater inflater = getLayoutInflater();
+        System.out.println("Test3");
         final View dialogView = inflater.inflate(R.layout.update_task_dialog, null);
         dialogBuilder.setView(dialogView);
 
@@ -246,8 +263,7 @@ public class MainTaskActivity extends Activity {
                 String status = spinnerStatus.getSelectedItem().toString();
                 String description = editTextDescription.getText().toString().trim();
                 if (!TextUtils.isEmpty(title)) {
-                    databaseTasks.push();
-                    String id = databaseTasks.getKey();
+                    String id = databaseTasks.push().getKey();
                     Task task = new Task(id, title, description, dueDate, 1);
                     databaseTasks.child(id).setValue(task);
                     b.dismiss();
@@ -275,39 +291,12 @@ public class MainTaskActivity extends Activity {
 
     }
     private void update(String id, String title, String dueDate, String description, int statusSel) {
-        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("products").child(id);
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("tasks").child(id);
         Task task = new Task(id, title, description, dueDate, statusSel);
         dR.setValue(task);
 
         Toast.makeText(getApplicationContext(), "Products Updated", Toast.LENGTH_LONG).show();
     }
-    public void pullFromDatabase() {
-        databaseTasks = FirebaseDatabase.getInstance().getReference("tasks");
 
-        databaseTasks.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                try {
-                    tasks.clear();
-                }catch (NullPointerException e) {
-                }
-                try {
-                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                        List<Task> taskList = null;
-                        taskList.add(postSnapshot.getValue(Task.class));
-                       // Task task = postSnapshot.getValue(Task.class);
-                       // tasks.add(task);
-                    }
-                }catch(NullPointerException e) {
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
     }
 
