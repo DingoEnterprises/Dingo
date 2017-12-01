@@ -42,18 +42,24 @@ public class CurrentTaskListFragment extends Fragment {
 
         return rootView;
     }
-    @Override
-    public void onStart() {
-        super.onStart();
-
-
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         listViewTasks.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Task task = tasks.get(i);
+                taskActivity.viewTask(task, getActivity());
                 return true;
-            };
-            });
+            }
+
+            ;
+        });
+    }
+    @Override
+    public void onStart(){
+        super.onStart();
+
+
         databaseTasks = FirebaseDatabase.getInstance().getReference("tasks");
 
         databaseTasks.addValueEventListener(new ValueEventListener() {
@@ -80,16 +86,7 @@ public class CurrentTaskListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        listViewTasks.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Task task = tasks.get(i);
 
-                return true;
-            }
-
-            ;
-        });
         databaseTasks = FirebaseDatabase.getInstance().getReference("tasks");
 
         databaseTasks.addValueEventListener(new ValueEventListener() {

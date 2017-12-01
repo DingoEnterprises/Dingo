@@ -4,6 +4,10 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:clickable="false"
+    android:descendantFocusability="blocksDescendants"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
     tools:context="com.example.dingo.dingoapp.CurrentTaskListFragment">
 
     <TextView
@@ -12,12 +16,19 @@
         android:layout_height="wrap_content"
         android:text="Click on each task to view more details"
         android:textAlignment="center"
+        android:textIsSelectable="false"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+
         />
 
     <ListView
         android:id="@+id/listViewTasks"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/textView"
+
         />
 
 

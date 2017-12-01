@@ -2,6 +2,7 @@ package com.example.dingo.dingoapp;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
@@ -110,47 +111,60 @@ public class MainTaskActivity extends Activity {
     //    tasks.clear{};
    // }
 
-    public void viewTask(final String taskId, String taskTitle) {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
+    public void viewTask(final Task task, final Context context) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context)
+                .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                }).setPositiveButton("Edit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+        System.out.println("Test2");
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+        System.out.println("Test3");
         final View dialogView = inflater.inflate(R.layout.view_task_dialog, null);
         dialogBuilder.setView(dialogView);
 
-        final TextView viewTextTitle = (TextView) dialogView.findViewById(R.id.textViewTitle);
-        final TextView viewTextDueDate  = (TextView) dialogView.findViewById(R.id.textViewDueDate);
-        final TextView viewTextStatus = (TextView) dialogView.findViewById(R.id.textViewStatus);
-        final TextView viewTextDescription = (TextView) dialogView.findViewById(R.id.textViewDescription);
-        final ImageButton buttonEdit = (ImageButton) dialogView.findViewById(R.id.buttonEdit);
-        final ImageButton buttonRemove = (ImageButton) dialogView.findViewById(R.id.buttonRemove);
+        final TextView viewTextTitle = (TextView) dialogView.findViewById(R.id.viewTitle);
+        final TextView viewTextDueDate  = (TextView) dialogView.findViewById(R.id.viewDueDate);
+        final TextView viewTextStatus = (TextView) dialogView.findViewById(R.id.viewStatus);
+        final TextView viewTextDescription = (TextView) dialogView.findViewById(R.id.viewDescription);
+        //final Spinner spinnerStatus = (Spinner) dialogView.findViewById(R.id.spinnerStatus);
+        viewTextTitle.setText(task.getTasktitle());
+        viewTextDueDate.setText(task.getTaskduedate());
+        viewTextDescription.setText(task.getTaskdescription());
+        String[] taskStatus = new String[4];
+        taskStatus[0] = "Not Started";
+        taskStatus[1] = "In Progress";
+        taskStatus[2] = "Complete";
+        taskStatus[3] = "Late";
+        viewTextStatus.setText(taskStatus[task.getTaskstatussel()]);
         dialogBuilder.setTitle("Task");
         final AlertDialog b = dialogBuilder.create();
         b.getWindow().setLayout(1080, 1080);
         b.show();
 
-        buttonEdit.setOnClickListener(new View.OnClickListener() {
+        b.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String title = viewTextTitle.getText().toString().trim();
-                String dueDate = viewTextDueDate.getText().toString().trim();
-                String status = viewTextStatus.getText().toString().trim();
-                String description = viewTextDescription.getText().toString().trim();
-                updateTask(taskId,title, dueDate, status, description);
+                Task passOnTask = task;
+                updateTask(passOnTask, context);
                 b.dismiss();
 
-            }
-        });
 
-        buttonRemove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                delete(taskId);
-                b.dismiss();
+
             }
         });
     }
-    private void updateTask(final String id, String title, final String dueDate, String status, final String description) {
+    private void updateTask(final Task task, Context context) {
 
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this)
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context)
                 .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -161,59 +175,59 @@ public class MainTaskActivity extends Activity {
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                     }
+                }).setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
                 });
 
         System.out.println("Test2");
-        LayoutInflater inflater = getLayoutInflater();
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
         System.out.println("Test3");
         final View dialogView = inflater.inflate(R.layout.update_task_dialog, null);
         dialogBuilder.setView(dialogView);
 
-        final EditText viewTextTitle = (EditText) dialogView.findViewById(R.id.textViewTitle);
-        final EditText viewTextDueDate  = (EditText) dialogView.findViewById(R.id.textViewDueDate);
-        final EditText viewTextStatus = (EditText) dialogView.findViewById(R.id.textViewStatus);
-        final EditText viewTextDescription = (EditText) dialogView.findViewById(R.id.textViewDescription);
-        final ImageButton buttonUpdate = (ImageButton) dialogView.findViewById(R.id.buttonConfirm);
-        final ImageButton buttonDelete = (ImageButton) dialogView.findViewById(R.id.buttonDelete);
+        final EditText editTextTitle = (EditText) dialogView.findViewById(R.id.editTextTitle);
+        final EditText editTextDueDate  = (EditText) dialogView.findViewById(R.id.editTextDueDate);
         final Spinner spinnerStatus = (Spinner) dialogView.findViewById(R.id.spinnerStatus);
+        final EditText editTextDescription = (EditText) dialogView.findViewById(R.id.editTextDescription);
 
         dialogBuilder.setTitle("Update Task");
         final AlertDialog b = dialogBuilder.create();
         b.getWindow().setLayout(1080, 1080);
         b.show();
-
-        buttonUpdate.setOnClickListener(new View.OnClickListener() {
+        b.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String title = viewTextTitle.getText().toString().trim();
-                String dueDate = viewTextDueDate.getText().toString().trim();
-                String description = viewTextDescription.getText().toString().trim();
-                String status = spinnerStatus.getSelectedItem().toString().trim();
-                String[] taskStatus = new String[4];
-                taskStatus[0] = "Not Started";
-                taskStatus[1] = "In Progress";
-                taskStatus[2] = "Complete";
-                taskStatus[3] = "Late";
-                int statusSel = 0;
-                for(int i=0; i<4; i++) {
-                    if(taskStatus[i] == status) {
-                        statusSel = i;
-                    }
-                }
-                if (!TextUtils.isEmpty(title)) {
-                    update(id, title, dueDate, description, statusSel);
+                Task passOnTask = task;
+                passOnTask.setTasktitle(editTextTitle.getText().toString().trim());
+                passOnTask.setTaskduedate(editTextDueDate.getText().toString().trim());
+                passOnTask.sTaskstatus(spinnerStatus.getSelectedItemPosition());
+                passOnTask.setTaskdescription(editTextDescription.getText().toString().trim());
+                if (!TextUtils.isEmpty(editTextTitle.getText().toString().trim())) {
+                    update(passOnTask);
                     b.dismiss();
+                    // Toast.makeText(this, "Product added", Toast.LENGTH_LONG).show();
+                }else {
+                    //Toast.makeText(this, "Please enter a name", Toast.LENGTH_LONG).show();
                 }
+
+
+            }
+        });
+        b.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Task passOnTask = task;
+                delete(passOnTask);
+                b.dismiss();
+
+
+
             }
         });
 
-        buttonDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                delete(id);
-                b.dismiss();
-            }
-        });
     }
 
     public void createTask() {
@@ -260,11 +274,11 @@ public class MainTaskActivity extends Activity {
             public void onClick(View view) {
                 String title = editTextTitle.getText().toString().trim();
                 String dueDate = editTextDueDate.getText().toString().trim();
-                String status = spinnerStatus.getSelectedItem().toString();
+                int statussel = spinnerStatus.getSelectedItemPosition();
                 String description = editTextDescription.getText().toString().trim();
                 if (!TextUtils.isEmpty(title)) {
                     String id = databaseTasks.push().getKey();
-                    Task task = new Task(id, title, description, dueDate, 1);
+                    Task task = new Task(id, title, description, dueDate, statussel);
                     databaseTasks.child(id).setValue(task);
                     b.dismiss();
                     // Toast.makeText(this, "Product added", Toast.LENGTH_LONG).show();
@@ -284,18 +298,17 @@ public class MainTaskActivity extends Activity {
         });
 
     }
-    private void delete(String id) {
-        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("tasks").child(id);
+    private void delete(Task task) {
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("tasks").child(task.getTaskid());
         dR.removeValue();
-        Toast.makeText(getApplicationContext(), "Task Deleted", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "Task Deleted", Toast.LENGTH_LONG).show();
 
     }
-    private void update(String id, String title, String dueDate, String description, int statusSel) {
-        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("tasks").child(id);
-        Task task = new Task(id, title, description, dueDate, statusSel);
+    private void update(Task task) {
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("tasks").child(task.getTaskid());
         dR.setValue(task);
 
-        Toast.makeText(getApplicationContext(), "Products Updated", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "Products Updated", Toast.LENGTH_LONG).show();
     }
 
     }
