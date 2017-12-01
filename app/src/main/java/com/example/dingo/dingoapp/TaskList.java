@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -30,12 +31,16 @@ public class TaskList extends ArrayAdapter<Task> {
 
         TextView textViewTitle = (TextView) listViewItem.findViewById(R.id.textViewTitle);
         TextView textViewDueDate = (TextView) listViewItem.findViewById(R.id.textViewDueDate);
+        TextView textViewStatus = (TextView) listViewItem.findViewById(R.id.textViewStatus);
+        ImageView imageViewAssignee = (ImageView) listViewItem.findViewById(R.id.imageViewAssignee);
 
 
         Task task = tasks.get(position);
         try {
             textViewTitle.setText(task.getTasktitle());
             textViewDueDate.setText(String.valueOf(task.getTaskduedate()));
+           // textViewStatus.setText(task.gTaskstatus());
+            //imageViewAssignee.setImageResource(R.mipmap.ic_assignment_black_24dp);
         }catch (Exception e) {
             textViewTitle.setText("Working?");
             textViewDueDate.setText(String.valueOf("Maybe?"));

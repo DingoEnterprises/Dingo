@@ -113,17 +113,22 @@ public class MainTaskActivity extends Activity {
 
     public void viewTask(final Task task, final Context context) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context)
-                .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Edit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                     }
-                }).setPositiveButton("Edit", new DialogInterface.OnClickListener() {
+                }).setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                     }
-                });
+                }).setNeutralButton("Close", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+        }
+    });;
 
         System.out.println("Test2");
         LayoutInflater inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
@@ -161,16 +166,28 @@ public class MainTaskActivity extends Activity {
 
             }
         });
+        b.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Task passOnTask = task;
+                delete(passOnTask);
+                b.dismiss();
+
+
+
+            }
+        });
+
     }
     private void updateTask(final Task task, Context context) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context)
-                .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Update", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                     }
-                }).setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                }).setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -234,12 +251,12 @@ public class MainTaskActivity extends Activity {
 
         System.out.println("Test1");
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this)
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Create", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                     }
-                }).setPositiveButton("Create", new DialogInterface.OnClickListener() {
+                }).setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
