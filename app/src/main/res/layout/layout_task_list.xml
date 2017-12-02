@@ -18,7 +18,7 @@
         android:focusableInTouchMode="false">
 
         <ImageView
-            android:id="@+id/imageViewAssignee"
+            android:id="@+id/assigneeImage"
             android:layout_width="56dp"
             android:layout_height="56dp"
 

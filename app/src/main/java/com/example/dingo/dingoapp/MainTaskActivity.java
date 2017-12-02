@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -14,7 +15,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -179,72 +182,79 @@ public class MainTaskActivity extends Activity {
         });
 
     }
-    private void updateTask(final Task task, Context context) {
+    private void updateTask(final Task task, Context context, User user) { //need a class called User
 
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context)
-                .setPositiveButton("Update", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+        if (user.isAdmin == true) {
 
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context)
+                    .setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    }).setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    }).setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+
+            System.out.println("Test2");
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            System.out.println("Test3");
+            final View dialogView = inflater.inflate(R.layout.update_task_dialog, null);
+            dialogBuilder.setView(dialogView);
+
+            final EditText editTextTitle = (EditText) dialogView.findViewById(R.id.editTextTitle);
+            final EditText editTextDueDate = (EditText) dialogView.findViewById(R.id.editTextDueDate);
+            final Spinner spinnerStatus = (Spinner) dialogView.findViewById(R.id.spinnerStatus);
+            final EditText editTextDescription = (EditText) dialogView.findViewById(R.id.editTextDescription);
+            //put spinner for assignee
+
+            dialogBuilder.setTitle("Update Task");
+            final AlertDialog b = dialogBuilder.create();
+            b.getWindow().setLayout(1080, 1080);
+            b.show();
+            b.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Task passOnTask = task;
+                    passOnTask.setTasktitle(editTextTitle.getText().toString().trim());
+                    passOnTask.setTaskduedate(editTextDueDate.getText().toString().trim());
+                    passOnTask.sTaskstatus(spinnerStatus.getSelectedItemPosition());
+                    passOnTask.setTaskdescription(editTextDescription.getText().toString().trim());
+                    if (!TextUtils.isEmpty(editTextTitle.getText().toString().trim())) {
+                        update(passOnTask);
+                        b.dismiss();
+                        // Toast.makeText(this, "Product added", Toast.LENGTH_LONG).show();
+                    } else {
+                        //Toast.makeText(this, "Please enter a name", Toast.LENGTH_LONG).show();
                     }
-                }).setNegativeButton("Delete", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                    }
-                }).setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                    }
-                });
-
-        System.out.println("Test2");
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
-        System.out.println("Test3");
-        final View dialogView = inflater.inflate(R.layout.update_task_dialog, null);
-        dialogBuilder.setView(dialogView);
-
-        final EditText editTextTitle = (EditText) dialogView.findViewById(R.id.editTextTitle);
-        final EditText editTextDueDate  = (EditText) dialogView.findViewById(R.id.editTextDueDate);
-        final Spinner spinnerStatus = (Spinner) dialogView.findViewById(R.id.spinnerStatus);
-        final EditText editTextDescription = (EditText) dialogView.findViewById(R.id.editTextDescription);
-
-        dialogBuilder.setTitle("Update Task");
-        final AlertDialog b = dialogBuilder.create();
-        b.getWindow().setLayout(1080, 1080);
-        b.show();
-        b.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Task passOnTask = task;
-                passOnTask.setTasktitle(editTextTitle.getText().toString().trim());
-                passOnTask.setTaskduedate(editTextDueDate.getText().toString().trim());
-                passOnTask.sTaskstatus(spinnerStatus.getSelectedItemPosition());
-                passOnTask.setTaskdescription(editTextDescription.getText().toString().trim());
-                if (!TextUtils.isEmpty(editTextTitle.getText().toString().trim())) {
-                    update(passOnTask);
-                    b.dismiss();
-                    // Toast.makeText(this, "Product added", Toast.LENGTH_LONG).show();
-                }else {
-                    //Toast.makeText(this, "Please enter a name", Toast.LENGTH_LONG).show();
                 }
+            });
+            b.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Task passOnTask = task;
+                    delete(passOnTask);
+                    b.dismiss();
 
 
-            }
-        });
-        b.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Task passOnTask = task;
-                delete(passOnTask);
-                b.dismiss();
+                }
+            });
 
+        }
 
-
-            }
-        });
-
+        else {
+            //Toast.makeText(this, "You must be an admin to edit this task", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void createTask() {
@@ -275,6 +285,7 @@ public class MainTaskActivity extends Activity {
         final EditText editTextDueDate  = (EditText) dialogView.findViewById(R.id.editTextDueDate);
         final Spinner spinnerStatus = (Spinner) dialogView.findViewById(R.id.spinnerStatus);
         final EditText editTextDescription = (EditText) dialogView.findViewById(R.id.editTextDescription);
+        final ImageView profilePic = (ImageView)findViewById(R.id.profilePic);
 
         dialogBuilder.setTitle("Create Task");
         final AlertDialog b = dialogBuilder.create();
@@ -295,7 +306,7 @@ public class MainTaskActivity extends Activity {
                 String description = editTextDescription.getText().toString().trim();
                 if (!TextUtils.isEmpty(title)) {
                     String id = databaseTasks.push().getKey();
-                    Task task = new Task(id, title, description, dueDate, statussel);
+                    Task task = new Task(id, title, description, dueDate, statussel); //add email
                     databaseTasks.child(id).setValue(task);
                     b.dismiss();
                     // Toast.makeText(this, "Product added", Toast.LENGTH_LONG).show();
@@ -315,6 +326,50 @@ public class MainTaskActivity extends Activity {
         });
 
     }
+
+    //method to be called by createTask and updateTask!!!
+    public void setTaskAssigneeImage(View view) { //need to access the list of users to set the correct image
+        Intent returnIntent = new Intent();
+        ImageView selectedImage = (ImageView) view;
+        returnIntent.putExtra("imageID", selectedImage.getId());
+        setResult(RESULT_OK, returnIntent);
+        finish();
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
+        if (resultCode == RESULT_CANCELED) return;
+        ImageView assigneeImage = (ImageView) findViewById(R.id.assigneeImage); //assigneeImage exists in layout_task_list
+
+        //ACCESS LIST_OF_IMAGES ACTIVITY and listen to for image on click
+        ListView listViewUsers;
+        listViewUsers.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Task task = tasks.get(assigneeimage);
+                taskActivity.viewTask(task, getActivity());
+                return true;
+            }
+
+        //Figuring out the correct image //WE NEED A LIST_OF_IMAGES XML ACTIVITY FOR THIS
+        String drawableName = "defaultProfilePic";
+        switch (data.getIntExtra("imageID,R.id.useridDefault")) {
+            //NEED TO LIST CASES FOR EACH USER THAT EXISTS IN THE PROGRAM
+            case R.id.useridDefault: //useridDefault should exist in LIST_OF_IMAGES XML ACTIVITY
+                drawableName = "defaultProfilePic";
+                break;
+            //case R.id.userid001:
+            //  drawableName = "user001ProfilePic";
+            //  break;
+            //case R.id.userid002:
+            //  drawableName = "user002ProfilePic";
+            //  break;
+            //case R.id.userid003:
+            //  drawableName = "user003ProfilePic";
+            //  break;
+        }
+        int resultID = getResources().getIdentifier(drawableName, "drawable", getPackageName());
+        assigneeImage.setImageResource(resultID);
+    }
+
     private void delete(Task task) {
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("tasks").child(task.getTaskid());
         dR.removeValue();

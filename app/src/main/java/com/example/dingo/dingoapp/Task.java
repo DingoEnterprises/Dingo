@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -16,11 +17,12 @@ public class Task {
     private String[] taskstatus; //enumeration: late, notStarted, complete, inProgess
     private int taskstatussel;
     private String taskduedate;
+    private String taskassigneeemail;
 
-    public Task() {
-    }
+    public Task() {}
+
     //For the Database
-    public Task(String id, String title, String description, String duedate, int statussel) {
+    public Task(String id, String title, String description, String duedate, int statussel, String assigneeemail) {
         taskid = id;
         tasktitle = title;
         taskdescription = description;
@@ -31,7 +33,7 @@ public class Task {
         taskstatus[2] = "Complete";
         taskstatus[3] = "Late";
         taskstatussel = statussel;
-
+        taskassigneeemail = assigneeemail;
     }
 
 
@@ -57,8 +59,8 @@ public class Task {
             }
         }
     }
-
-
+    public void setTaskassigneeemail(String email) {taskassigneeemail = email;}
+    public String getTaskassigneeemail() {return taskassigneeemail;}
 
 }
 //End
