@@ -52,7 +52,10 @@ public class CurrentTaskListFragment extends Fragment {
 =======
                 Task task = tasks.get(i);
                 taskActivity.viewTask(task, getActivity());
+<<<<<<< HEAD
 >>>>>>> 7b78615dc39f919d6b68998c62ef03b67872e8e6
+=======
+>>>>>>> master
                 return true;
             }
 
@@ -91,12 +94,15 @@ public class CurrentTaskListFragment extends Fragment {
     public void onResume() {
         super.onResume();
 <<<<<<< HEAD
+<<<<<<< HEAD
         listViewTasks.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 MyTask task = tasks.get(i);
 =======
 >>>>>>> 7b78615dc39f919d6b68998c62ef03b67872e8e6
+=======
+>>>>>>> master
 
         databaseTasks = FirebaseDatabase.getInstance().getReference("tasks");
 
