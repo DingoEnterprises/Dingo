@@ -42,10 +42,21 @@ public class MyTask {
     public String getTasktitle() {return tasktitle;}
     public void setTaskdescription(String description) {taskdescription = description;}
     public String getTaskdescription() {return taskdescription;}
-    //public String getTaskstatus(){return taskstatus[taskstatussel];}
+    public String gTaskstatus(){return taskstatus[taskstatussel];}
     public int getTaskstatussel() {return taskstatussel;}
     public void setTaskduedate(String duedate) {taskduedate = duedate;}
     public String getTaskduedate(){return taskduedate;}
+    public void sTaskstatus(int sel) {
+        taskstatussel = sel;
+    }
+    public void byTaskstatussel(String sel) {
+        for (int i=0;i<taskstatus.length;i++) {
+            if (taskstatus[i].equals(sel)) {
+                taskstatussel = i;
+                break;
+            }
+        }
+    }
 
 
 

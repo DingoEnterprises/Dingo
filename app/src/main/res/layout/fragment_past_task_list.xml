@@ -3,6 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:clickable="false"
+    android:descendantFocusability="blocksDescendants"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
     tools:context="com.example.dingo.dingoapp.PastTaskListFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -10,14 +14,18 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Click on each task to view more details"
+        android:text="Long click on each task to view more details"
         android:textAlignment="center"
+        android:textIsSelectable="false"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         />
 
     <ListView
         android:id="@+id/listViewPTasks"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/textView">
     </ListView>
 
