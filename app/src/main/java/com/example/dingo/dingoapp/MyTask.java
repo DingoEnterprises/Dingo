@@ -22,7 +22,7 @@ public class MyTask {
     public MyTask() {}
 
     //For the Database
-    public MyTask(String id, String title, String description, String duedate, int statussel) { //String assigneeemail
+    public MyTask(String id, String title, String description, String duedate, int statussel, String assigneeemail) {
         taskid = id;
         tasktitle = title;
         taskdescription = description;
@@ -33,7 +33,7 @@ public class MyTask {
         taskstatus[2] = "Complete";
         taskstatus[3] = "Late";
         taskstatussel = statussel;
-        // taskassigneeemail = assigneeemail;
+        taskassigneeemail = assigneeemail;
     }
 
 
@@ -44,7 +44,14 @@ public class MyTask {
     public String getTasktitle() {return tasktitle;}
     public void setTaskdescription(String description) {taskdescription = description;}
     public String getTaskdescription() {return taskdescription;}
-    public String gTaskstatus(){return taskstatus[taskstatussel];}
+    public String gTaskstatus(int taskstatussel){
+        taskstatus = new String[4];
+        taskstatus[0] = "Not Started";
+        taskstatus[1] = "In Progress";
+        taskstatus[2] = "Complete";
+        taskstatus[3] = "Late";
+        return taskstatus[taskstatussel];
+    }
     public int getTaskstatussel() {return taskstatussel;}
     public void setTaskduedate(String duedate) {taskduedate = duedate;}
     public String getTaskduedate(){return taskduedate;}

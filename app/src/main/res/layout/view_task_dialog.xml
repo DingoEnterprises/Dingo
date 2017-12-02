@@ -58,14 +58,13 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <QuickContactBadge
-                android:id="@+id/contactBadgeAssignee"
+            <ImageView
+                android:id="@+id/imageViewAssignee"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:clickable="false"
-                app:srcCompat="@drawable/a1" />
+                app:srcCompat="@mipmap/ic_assignment_black_24dp" />
+
         </LinearLayout>
     </LinearLayout>
     <Space

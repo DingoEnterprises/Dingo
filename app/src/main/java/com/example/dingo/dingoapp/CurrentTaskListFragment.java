@@ -32,8 +32,6 @@ public class CurrentTaskListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_current_task_list2, container, false);
         listViewTasks = (ListView) rootView.findViewById(R.id.listViewTasks);
-        //taskActivity.tasks.add(new Task("Test", "testTitle", "TestDescription", "12", 0));
-       // ArrayAdapter<Task> arrayAdapterTask = new ArrayAdapter<Task>(getActivity(),android.R.layout.simple_list_item_1, taskActivity.tasks);
         tasks = new ArrayList<>();
 
         databaseTasks = FirebaseDatabase.getInstance().getReference("tasks");

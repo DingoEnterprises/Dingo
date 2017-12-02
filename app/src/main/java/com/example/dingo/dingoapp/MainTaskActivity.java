@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -16,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toolbar;
@@ -104,15 +106,6 @@ public class MainTaskActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-    //public List<Task> getTasks() {
-   //     return tasks;
-   // }
-    //public void addTasks(Task task) {
-   //     tasks.add(task);
-   // }
-    //public void clearTasks() {
-    //    tasks.clear{};
-   // }
 
     public void viewTask(final MyTask task, final Context context) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context)
@@ -143,10 +136,11 @@ public class MainTaskActivity extends Activity {
         final TextView viewTextDueDate  = (TextView) dialogView.findViewById(R.id.viewDueDate);
         final TextView viewTextStatus = (TextView) dialogView.findViewById(R.id.viewStatus);
         final TextView viewTextDescription = (TextView) dialogView.findViewById(R.id.viewDescription);
-        //final Spinner spinnerStatus = (Spinner) dialogView.findViewById(R.id.spinnerStatus);
+        final ImageView viewImageAssignee = (ImageView) dialogView.findViewById(R.id.imageViewAssignee);
         viewTextTitle.setText(task.getTasktitle());
         viewTextDueDate.setText(task.getTaskduedate());
         viewTextDescription.setText(task.getTaskdescription());
+        viewImageAssignee.setImageResource(R.drawable.a1); ///change this later
         String[] taskStatus = new String[4];
         taskStatus[0] = "Not Started";
         taskStatus[1] = "In Progress";
@@ -214,12 +208,13 @@ public class MainTaskActivity extends Activity {
             final EditText editTextDueDate = (EditText) dialogView.findViewById(R.id.editTextDueDate);
             final Spinner spinnerStatus = (Spinner) dialogView.findViewById(R.id.spinnerStatus);
             final EditText editTextDescription = (EditText) dialogView.findViewById(R.id.editTextDescription);
-            //put spinner for assignee
-
+            final Spinner spinnerAssignee = (Spinner) dialogView.findViewById(R.id.spinnerAssignee);
+            final ImageView imageAssignee = (ImageView) dialogView.findViewById(R.id.imageViewAssignee);
             dialogBuilder.setTitle("Update Task");
             final AlertDialog b = dialogBuilder.create();
             b.getWindow().setLayout(1080, 1080);
             b.show();
+
             b.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -304,9 +299,10 @@ public class MainTaskActivity extends Activity {
                 String dueDate = editTextDueDate.getText().toString().trim();
                 int statussel = spinnerStatus.getSelectedItemPosition();
                 String description = editTextDescription.getText().toString().trim();
+                String email = "sampleimail@gmail.com";
                 if (!TextUtils.isEmpty(title)) {
                     String id = databaseTasks.push().getKey();
-                    MyTask task = new MyTask(id, title, description, dueDate, statussel); //add email
+                    MyTask task = new MyTask(id, title, description, dueDate, statussel, email); //add email
                     databaseTasks.child(id).setValue(task);
                     b.dismiss();
                     // Toast.makeText(this, "Product added", Toast.LENGTH_LONG).show();

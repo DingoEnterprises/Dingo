@@ -32,19 +32,15 @@ public class TaskList extends ArrayAdapter<MyTask> {
         TextView textViewTitle = (TextView) listViewItem.findViewById(R.id.textViewTitle);
         TextView textViewDueDate = (TextView) listViewItem.findViewById(R.id.textViewDueDate);
         TextView textViewStatus = (TextView) listViewItem.findViewById(R.id.textViewStatus);
-        //ImageView imageViewAssignee = (ImageView) listViewItem.findViewById(R.id.imageViewAssignee);
+        ImageView imageViewAssignee = (ImageView) listViewItem.findViewById(R.id.assigneeImage);
 
 
         MyTask task = tasks.get(position);
-        try {
             textViewTitle.setText(task.getTasktitle());
             textViewDueDate.setText(String.valueOf(task.getTaskduedate()));
-           // textViewStatus.setText(task.gTaskstatus());
-            //imageViewAssignee.setImageResource(R.mipmap.ic_assignment_black_24dp);
-        }catch (Exception e) {
-            textViewTitle.setText("Working?");
-            textViewDueDate.setText(String.valueOf("Maybe?"));
-        }
+            textViewStatus.setText(task.gTaskstatus(task.getTaskstatussel()));
+            imageViewAssignee.setImageResource(R.mipmap.ic_assignment_black_24dp);
+
         return listViewItem;
     }
 }
