@@ -184,7 +184,7 @@ public class MainTaskActivity extends Activity {
     }
     private void updateTask(final Task task, Context context, User user) { //need a class called User
 
-        if (user.isAdmin == true) {
+        if (user.getIsadmin() == true) {
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context)
                     .setPositiveButton("Update", new DialogInterface.OnClickListener() {
@@ -348,6 +348,8 @@ public class MainTaskActivity extends Activity {
                 taskActivity.viewTask(task, getActivity());
                 return true;
             }
+
+        //firebaseAuth.getCurrentUser() -> returns a user
 
         //Figuring out the correct image //WE NEED A LIST_OF_IMAGES XML ACTIVITY FOR THIS
         String drawableName = "defaultProfilePic";
