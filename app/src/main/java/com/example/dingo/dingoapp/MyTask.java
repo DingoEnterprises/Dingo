@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class Task {
+public class MyTask {
     private String taskid;
     private String tasktitle;
     private String taskdescription;
@@ -17,10 +17,10 @@ public class Task {
     private int taskstatussel;
     private String taskduedate;
 
-    public Task() {
+    public MyTask() {
     }
     //For the Database
-    public Task(String id, String title, String description, String duedate, int statussel) {
+    public MyTask(String id, String title, String description, String duedate, int statussel) {
         taskid = id;
         tasktitle = title;
         taskdescription = description;

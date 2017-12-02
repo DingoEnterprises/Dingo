@@ -3,12 +3,17 @@ package com.example.dingo.dingoapp;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -27,6 +32,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,10 +44,14 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class MainTaskActivity extends Activity {
+public class MainTaskActivity extends Activity implements  NavigationView.OnNavigationItemSelectedListener{
     FloatingActionButton addTaskButton;
     DatabaseReference databaseTasks;
     TaskList taskAdapter;
+    NavigationView navigationView;
+    DrawerLayout drawerLayout;
+    FirebaseAuth mAuth;
+    FirebaseAuth.AuthStateListener mAuthListener;
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +59,10 @@ public class MainTaskActivity extends Activity {
         setContentView(R.layout.activity_task_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setActionBar(toolbar);
+        drawerLayout = (DrawerLayout) findViewById(R.id.main_layout);
+        navigationView = (NavigationView) findViewById(R.id.navigation_bar);
+        navigationView.setNavigationItemSelectedListener(this);
+
         addTaskButton = (FloatingActionButton) findViewById(R.id.addTaskButton);
         addTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +101,16 @@ public class MainTaskActivity extends Activity {
             }
         });
 
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener= new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                //If no account then go back to login screen
+                if (firebaseAuth.getCurrentUser()==null){
+                    startActivity(new Intent(MainTaskActivity.this, LoginActivity.class));
+                }
+            }
+        };
     }
 
     @Override
@@ -264,7 +288,7 @@ public class MainTaskActivity extends Activity {
                 String description = editTextDescription.getText().toString().trim();
                 if (!TextUtils.isEmpty(title)) {
                     String id = databaseTasks.push().getKey();
-                    Task task = new Task(id, title, description, dueDate, 1);
+                    MyTask task = new MyTask(id, title, description, dueDate, 1);
                     databaseTasks.child(id).setValue(task);
                     b.dismiss();
                     // Toast.makeText(this, "Product added", Toast.LENGTH_LONG).show();
@@ -292,11 +316,28 @@ public class MainTaskActivity extends Activity {
     }
     private void update(String id, String title, String dueDate, String description, int statusSel) {
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("tasks").child(id);
-        Task task = new Task(id, title, description, dueDate, statusSel);
+        MyTask task = new MyTask(id, title, description, dueDate, statusSel);
         dR.setValue(task);
 
         Toast.makeText(getApplicationContext(), "Products Updated", Toast.LENGTH_LONG).show();
     }
+    @Override
+    protected  void onStart(){
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        int id = item.getItemId();
+
+        switch (id){
+            case R.id.logout:
+                mAuth.signOut();
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
 
     }
+}
 

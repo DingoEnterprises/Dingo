@@ -1,4 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/nav_households"
+        android:title="Switch Households"
+        android:icon="@mipmap/ic_swap_horiz_black_24dp"/>
+    <item
+        android:id="@+id/chat"
+        android:title="Chat"
+        android:icon="@mipmap/ic_chat_black_24dp"/>
+    <item
+        android:id="@+id/manageHousehold"
+        android:title="Manage Household"
+        android:icon="@mipmap/ic_home_black_24dp"/>
 
+    <item android:id="@+id/nav_myTasks"
+        android:title="Tasks"
+        android:icon="@mipmap/ic_assignment_black_24dp"/>
+    <!--android:onClick="goToTasks"-->
+
+    <item android:id="@+id/nav_tools"
+        android:title="Tools"
+        android:icon="@mipmap/ic_build_black_24dp"/>
+
+    <item android:id="@+id/grocery"
+        android:title="Grocery List"
+        android:icon="@mipmap/ic_shopping_cart_black_24dp"/>
+
+    <item android:id="@+id/calender"
+        android:title="Calender"
+        android:icon="@mipmap/ic_date_range_black_24dp"/>
+
+    <item android:id="@+id/logout"
+        android:title="Switch User"
+        android:icon="@mipmap/ic_people_black_24dp"/>
 </menu>

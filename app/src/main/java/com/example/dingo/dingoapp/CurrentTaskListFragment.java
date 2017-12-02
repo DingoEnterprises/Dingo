@@ -24,7 +24,7 @@ import java.util.List;
 
 public class CurrentTaskListFragment extends Fragment {
     MainTaskActivity taskActivity = new MainTaskActivity();
-    List<Task> tasks;
+    List<MyTask> tasks;
     ListView listViewTasks;
     DatabaseReference databaseTasks;
 
@@ -50,7 +50,7 @@ public class CurrentTaskListFragment extends Fragment {
         listViewTasks.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Task task = tasks.get(i);
+                MyTask task = tasks.get(i);
                 return true;
             };
             });
@@ -61,7 +61,7 @@ public class CurrentTaskListFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 tasks.clear();
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                        Task task = postSnapshot.getValue(Task.class);
+                        MyTask task = postSnapshot.getValue(MyTask.class);
                         tasks.add(task);
 
                     }
@@ -83,7 +83,7 @@ public class CurrentTaskListFragment extends Fragment {
         listViewTasks.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Task task = tasks.get(i);
+                MyTask task = tasks.get(i);
 
                 return true;
             }
@@ -97,7 +97,7 @@ public class CurrentTaskListFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 tasks.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                        Task task = postSnapshot.getValue(Task.class);
+                        MyTask task = postSnapshot.getValue(MyTask.class);
                         tasks.add(task);
 
                     }

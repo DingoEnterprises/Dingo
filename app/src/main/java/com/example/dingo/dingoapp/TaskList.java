@@ -13,11 +13,11 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class TaskList extends ArrayAdapter<Task> {
+public class TaskList extends ArrayAdapter<MyTask> {
     private Activity context;
-    private List<Task> tasks;
+    private List<MyTask> tasks;
 
-    public TaskList(Activity context, List<Task> tasks) {
+    public TaskList(Activity context, List<MyTask> tasks) {
         super(context, R.layout.fragment_current_task_list2, tasks);
         this.context = context;
         this.tasks = tasks;
@@ -32,7 +32,7 @@ public class TaskList extends ArrayAdapter<Task> {
         TextView textViewDueDate = (TextView) listViewItem.findViewById(R.id.textViewDueDate);
 
 
-        Task task = tasks.get(position);
+        MyTask task = tasks.get(position);
         try {
             textViewTitle.setText(task.getTasktitle());
             textViewDueDate.setText(String.valueOf(task.getTaskduedate()));
