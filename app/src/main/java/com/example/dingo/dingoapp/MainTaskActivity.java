@@ -335,7 +335,7 @@ public class MainTaskActivity extends Activity {
         setResult(RESULT_OK, returnIntent);
         finish();
     }
-   /* @Override ///added by Ash
+   /* @Override ///added by Anthony
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
         if (resultCode == RESULT_CANCELED) return;
         ImageView assigneeImage = (ImageView) findViewById(R.id.assigneeImage); //assigneeImage exists in layout_task_list
