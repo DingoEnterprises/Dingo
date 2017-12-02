@@ -19,15 +19,13 @@ import java.util.List;
 
 public class PastTaskListFragment extends Fragment {
     MainTaskActivity taskActivity = new MainTaskActivity();
-    List<Task> tasks;
+    List<MyTask> tasks;
     ListView listViewTasks;
     DatabaseReference databaseTasks;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_past_task_list, container, false);
         listViewTasks = (ListView) rootView.findViewById(R.id.listViewPTasks);
-        //taskActivity.tasks.add(new Task("Test", "testTitle", "TestDescription", "12", 0));
-        // ArrayAdapter<Task> arrayAdapterTask = new ArrayAdapter<Task>(getActivity(),android.R.layout.simple_list_item_1, taskActivity.tasks);
         tasks = new ArrayList<>();
 
         databaseTasks = FirebaseDatabase.getInstance().getReference("tasks");
@@ -44,7 +42,7 @@ public class PastTaskListFragment extends Fragment {
         listViewTasks.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Task task = tasks.get(i);
+                MyTask task = tasks.get(i);
                 return true;
             };
         });
@@ -55,7 +53,7 @@ public class PastTaskListFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 tasks.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Task task = postSnapshot.getValue(Task.class);
+                    MyTask task = postSnapshot.getValue(MyTask.class);
                     tasks.add(task);
 
                 }
@@ -76,7 +74,7 @@ public class PastTaskListFragment extends Fragment {
         listViewTasks.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Task task = tasks.get(i);
+                MyTask task = tasks.get(i);
 
                 return true;
             }
@@ -90,7 +88,7 @@ public class PastTaskListFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 tasks.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Task task = postSnapshot.getValue(Task.class);
+                    MyTask task = postSnapshot.getValue(MyTask.class);
                     tasks.add(task);
 
                 }

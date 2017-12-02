@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class Task {
+public class MyTask {
     private String taskid;
     private String tasktitle;
     private String taskdescription;
@@ -19,10 +19,10 @@ public class Task {
     private String taskduedate;
     private String taskassigneeemail;
 
-    public Task() {}
+    public MyTask() {}
 
     //For the Database
-    public Task(String id, String title, String description, String duedate, int statussel, String assigneeemail) {
+    public MyTask(String id, String title, String description, String duedate, int statussel) { //String assigneeemail
         taskid = id;
         tasktitle = title;
         taskdescription = description;
@@ -33,7 +33,7 @@ public class Task {
         taskstatus[2] = "Complete";
         taskstatus[3] = "Late";
         taskstatussel = statussel;
-        taskassigneeemail = assigneeemail;
+        // taskassigneeemail = assigneeemail;
     }
 
 

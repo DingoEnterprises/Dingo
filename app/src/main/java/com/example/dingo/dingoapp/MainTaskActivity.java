@@ -114,7 +114,7 @@ public class MainTaskActivity extends Activity {
     //    tasks.clear{};
    // }
 
-    public void viewTask(final Task task, final Context context) {
+    public void viewTask(final MyTask task, final Context context) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context)
                 .setPositiveButton("Edit", new DialogInterface.OnClickListener() {
                     @Override
@@ -161,7 +161,7 @@ public class MainTaskActivity extends Activity {
         b.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Task passOnTask = task;
+                MyTask passOnTask = task;
                 updateTask(passOnTask, context);
                 b.dismiss();
 
@@ -172,7 +172,7 @@ public class MainTaskActivity extends Activity {
         b.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Task passOnTask = task;
+                MyTask passOnTask = task;
                 delete(passOnTask);
                 b.dismiss();
 
@@ -182,9 +182,9 @@ public class MainTaskActivity extends Activity {
         });
 
     }
-    private void updateTask(final Task task, Context context, User user) { //need a class called User
+    private void updateTask(final MyTask task, Context context) { //need a class called User  , User user
 
-        if (user.isAdmin == true) {
+       // if (user.isAdmin == true) {
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context)
                     .setPositiveButton("Update", new DialogInterface.OnClickListener() {
@@ -223,7 +223,7 @@ public class MainTaskActivity extends Activity {
             b.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Task passOnTask = task;
+                    MyTask passOnTask = task;
                     passOnTask.setTasktitle(editTextTitle.getText().toString().trim());
                     passOnTask.setTaskduedate(editTextDueDate.getText().toString().trim());
                     passOnTask.sTaskstatus(spinnerStatus.getSelectedItemPosition());
@@ -242,7 +242,7 @@ public class MainTaskActivity extends Activity {
             b.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Task passOnTask = task;
+                    MyTask passOnTask = task;
                     delete(passOnTask);
                     b.dismiss();
 
@@ -252,10 +252,10 @@ public class MainTaskActivity extends Activity {
 
         }
 
-        else {
+       // else {
             //Toast.makeText(this, "You must be an admin to edit this task", Toast.LENGTH_LONG).show();
-        }
-    }
+      //  }
+   // }
 
     public void createTask() {
 
@@ -285,7 +285,7 @@ public class MainTaskActivity extends Activity {
         final EditText editTextDueDate  = (EditText) dialogView.findViewById(R.id.editTextDueDate);
         final Spinner spinnerStatus = (Spinner) dialogView.findViewById(R.id.spinnerStatus);
         final EditText editTextDescription = (EditText) dialogView.findViewById(R.id.editTextDescription);
-        final ImageView profilePic = (ImageView)findViewById(R.id.profilePic);
+       // final ImageView profilePic = (ImageView)findViewById(R.id.profilePic);   ///added by Ash
 
         dialogBuilder.setTitle("Create Task");
         final AlertDialog b = dialogBuilder.create();
@@ -306,7 +306,7 @@ public class MainTaskActivity extends Activity {
                 String description = editTextDescription.getText().toString().trim();
                 if (!TextUtils.isEmpty(title)) {
                     String id = databaseTasks.push().getKey();
-                    Task task = new Task(id, title, description, dueDate, statussel); //add email
+                    MyTask task = new MyTask(id, title, description, dueDate, statussel); //add email
                     databaseTasks.child(id).setValue(task);
                     b.dismiss();
                     // Toast.makeText(this, "Product added", Toast.LENGTH_LONG).show();
@@ -335,7 +335,7 @@ public class MainTaskActivity extends Activity {
         setResult(RESULT_OK, returnIntent);
         finish();
     }
-    @Override
+   /* @Override ///added by Ash
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
         if (resultCode == RESULT_CANCELED) return;
         ImageView assigneeImage = (ImageView) findViewById(R.id.assigneeImage); //assigneeImage exists in layout_task_list
@@ -368,15 +368,15 @@ public class MainTaskActivity extends Activity {
         }
         int resultID = getResources().getIdentifier(drawableName, "drawable", getPackageName());
         assigneeImage.setImageResource(resultID);
-    }
+    }*/
 
-    private void delete(Task task) {
+    private void delete(MyTask task) {
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("tasks").child(task.getTaskid());
         dR.removeValue();
         //Toast.makeText(getApplicationContext(), "Task Deleted", Toast.LENGTH_LONG).show();
 
     }
-    private void update(Task task) {
+    private void update(MyTask task) {
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("tasks").child(task.getTaskid());
         dR.setValue(task);
 
