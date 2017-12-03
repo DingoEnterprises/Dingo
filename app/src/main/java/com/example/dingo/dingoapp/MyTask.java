@@ -19,10 +19,12 @@ public class MyTask {
     private String taskduedate;
     private String taskassigneeemail;
 
+
     public MyTask() {}
 
     //For the Database
     public MyTask(String id, String title, String description, String duedate, int statussel, String assigneeemail) {
+
         taskid = id;
         tasktitle = title;
         taskdescription = description;
@@ -66,8 +68,6 @@ public class MyTask {
             }
         }
     }
-    public void setTaskassigneeemail(String email) {taskassigneeemail = email;}
-    public String getTaskassigneeemail() {return taskassigneeemail;}
 
 }
 //End

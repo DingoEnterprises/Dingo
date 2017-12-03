@@ -166,19 +166,20 @@ public class MainTaskActivity extends Activity {
         b.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 MyTask passOnTask = task;
                 delete(passOnTask);
                 b.dismiss();
 
-
-
-            }
+                }
         });
 
     }
+
     private void updateTask(final MyTask task, Context context) { //need a class called User  , User user
 
        // if (user.isAdmin == true) {
+
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context)
                     .setPositiveButton("Update", new DialogInterface.OnClickListener() {
@@ -249,8 +250,10 @@ public class MainTaskActivity extends Activity {
 
        // else {
             //Toast.makeText(this, "You must be an admin to edit this task", Toast.LENGTH_LONG).show();
+
       //  }
    // }
+
 
     public void createTask() {
 
@@ -280,6 +283,7 @@ public class MainTaskActivity extends Activity {
         final EditText editTextDueDate  = (EditText) dialogView.findViewById(R.id.editTextDueDate);
         final Spinner spinnerStatus = (Spinner) dialogView.findViewById(R.id.spinnerStatus);
         final EditText editTextDescription = (EditText) dialogView.findViewById(R.id.editTextDescription);
+
        // final ImageView profilePic = (ImageView)findViewById(R.id.profilePic);   ///added by Ash
 
         dialogBuilder.setTitle("Create Task");
@@ -302,7 +306,9 @@ public class MainTaskActivity extends Activity {
                 String email = "sampleimail@gmail.com";
                 if (!TextUtils.isEmpty(title)) {
                     String id = databaseTasks.push().getKey();
+
                     MyTask task = new MyTask(id, title, description, dueDate, statussel, email); //add email
+
                     databaseTasks.child(id).setValue(task);
                     b.dismiss();
                     // Toast.makeText(this, "Product added", Toast.LENGTH_LONG).show();
@@ -323,6 +329,7 @@ public class MainTaskActivity extends Activity {
 
     }
 
+
     //method to be called by createTask and updateTask!!!
     public void setTaskAssigneeImage(View view) { //need to access the list of users to set the correct image
         Intent returnIntent = new Intent();
@@ -331,7 +338,9 @@ public class MainTaskActivity extends Activity {
         setResult(RESULT_OK, returnIntent);
         finish();
     }
+
    /* @Override ///added by Ash
+
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
         if (resultCode == RESULT_CANCELED) return;
         ImageView assigneeImage = (ImageView) findViewById(R.id.assigneeImage); //assigneeImage exists in layout_task_list
@@ -340,7 +349,7 @@ public class MainTaskActivity extends Activity {
         ListView listViewUsers;
         listViewUsers.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Task task = tasks.get(assigneeimage);
+                MyTask task = tasks.get(assigneeimage);
                 taskActivity.viewTask(task, getActivity());
                 return true;
             }
@@ -372,6 +381,7 @@ public class MainTaskActivity extends Activity {
         //Toast.makeText(getApplicationContext(), "Task Deleted", Toast.LENGTH_LONG).show();
 
     }
+
     private void update(MyTask task) {
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("tasks").child(task.getTaskid());
         dR.setValue(task);

@@ -45,8 +45,11 @@ public class CurrentTaskListFragment extends Fragment {
         listViewTasks.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+
                 MyTask task = tasks.get(i);
                 taskActivity.viewTask(task, getActivity());
+
+
                 return true;
             }
 
@@ -84,28 +87,6 @@ public class CurrentTaskListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-        databaseTasks = FirebaseDatabase.getInstance().getReference("tasks");
-
-        databaseTasks.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                tasks.clear();
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                        MyTask task = postSnapshot.getValue(MyTask.class);
-                        tasks.add(task);
-
-                    }
-                TaskList taskAdapter = new TaskList(getActivity(), tasks);
-                listViewTasks.setAdapter(taskAdapter);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
 
 
     }
