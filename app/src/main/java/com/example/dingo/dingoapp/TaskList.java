@@ -32,7 +32,7 @@ public class TaskList extends ArrayAdapter<MyTask> {
         TextView textViewTitle = (TextView) listViewItem.findViewById(R.id.textViewTitle);
         TextView textViewDueDate = (TextView) listViewItem.findViewById(R.id.textViewDueDate);
         TextView textViewStatus = (TextView) listViewItem.findViewById(R.id.textViewStatus);
-        ImageView imageViewAssignee = (ImageView) listViewItem.findViewById(R.id.imageViewAssignee);
+        //ImageView imageViewAssignee = (ImageView) listViewItem.findViewById(R.id.imageViewAssignee);
 
 
         MyTask task = tasks.get(position);

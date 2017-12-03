@@ -198,7 +198,7 @@ public class MainTaskActivity extends Activity implements  NavigationView.OnNavi
                     MyTask passOnTask = task;
                     delete(passOnTask);
                     b.dismiss();
-=
+
                 }
         });
 
@@ -327,7 +327,7 @@ public class MainTaskActivity extends Activity implements  NavigationView.OnNavi
         final EditText editTextDueDate  = (EditText) dialogView.findViewById(R.id.editTextDueDate);
         final Spinner spinnerStatus = (Spinner) dialogView.findViewById(R.id.spinnerStatus);
         final EditText editTextDescription = (EditText) dialogView.findViewById(R.id.editTextDescription);
-        final ImageView profilePic = (ImageView)findViewById(R.id.profilePic);
+        //final ImageView profilePic = (ImageView)findViewById(R.id.profilePic);
 
         dialogBuilder.setTitle("Create Task");
         final AlertDialog b = dialogBuilder.create();
@@ -380,7 +380,7 @@ public class MainTaskActivity extends Activity implements  NavigationView.OnNavi
         setResult(RESULT_OK, returnIntent);
         finish();
     }
-    @Override
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
         if (resultCode == RESULT_CANCELED) return;
         ImageView assigneeImage = (ImageView) findViewById(R.id.assigneeImage); //assigneeImage exists in layout_task_list
@@ -415,7 +415,7 @@ public class MainTaskActivity extends Activity implements  NavigationView.OnNavi
         }
         int resultID = getResources().getIdentifier(drawableName, "drawable", getPackageName());
         assigneeImage.setImageResource(resultID);
-    }
+    }*/
 
     private void delete(MyTask task) {
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("tasks").child(task.getTaskid());
