@@ -8,10 +8,12 @@ import android.content.Intent;
 import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
@@ -401,7 +403,24 @@ public class MainTaskActivity extends Activity implements  NavigationView.OnNavi
 
         //Toast.makeText(getApplicationContext(), "Products Updated", Toast.LENGTH_LONG).show();
     }
+    @Override
+    protected  void onStart(){
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+        int id = item.getItemId();
+
+        switch (id){
+            case R.id.logout:
+                mAuth.signOut();
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+
+    }
 
     }
 
