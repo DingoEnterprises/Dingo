@@ -38,7 +38,7 @@ public class ProductList extends ArrayAdapter<Product> {
 
                 Product product = products.get(position);
                 textViewName.setText(product.getProductName());
-                textViewPrice.setText(String.valueOf(product.getPrice()));
+                textViewPrice.setText("$"+String.valueOf(product.getPrice()));
                 return listViewItem;
         }
 }
