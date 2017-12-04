@@ -422,9 +422,5 @@ public class MainTaskActivity extends Activity implements  NavigationView.OnNavi
 
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
-    }
 }
 
