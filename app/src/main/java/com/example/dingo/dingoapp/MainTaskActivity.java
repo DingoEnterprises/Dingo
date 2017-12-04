@@ -10,8 +10,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -33,6 +35,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,10 +47,15 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class MainTaskActivity extends Activity {
+public class MainTaskActivity extends Activity implements  NavigationView.OnNavigationItemSelectedListener{
     FloatingActionButton addTaskButton;
     DatabaseReference databaseTasks;
     TaskList taskAdapter;
+    NavigationView navigationView;
+    DrawerLayout drawerLayout;
+    FirebaseAuth mAuth;
+    FirebaseAuth.AuthStateListener mAuthListener;
+
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +70,11 @@ public class MainTaskActivity extends Activity {
                 createTask();
             }
         });
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.main_layout);
+        navigationView = (NavigationView) findViewById(R.id.navigation_bar);
+        navigationView.setNavigationItemSelectedListener(this);
+
 
         databaseTasks = FirebaseDatabase.getInstance().getReference("tasks");
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -388,6 +401,7 @@ public class MainTaskActivity extends Activity {
 
         //Toast.makeText(getApplicationContext(), "Products Updated", Toast.LENGTH_LONG).show();
     }
+    
 
     }
 
