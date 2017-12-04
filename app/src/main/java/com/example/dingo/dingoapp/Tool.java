@@ -1,4 +1,4 @@
-package com.example.bim.dingo;
+package com.example.dingo.dingoapp;
 
 
 public class Tool {

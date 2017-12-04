@@ -1,4 +1,4 @@
-package com.example.bim.dingo;
+package com.example.dingo.dingoapp;
 
 import android.app.Activity;
 import android.view.LayoutInflater;

@@ -1,4 +1,4 @@
-package com.example.bim.dingo;
+package com.example.dingo.dingoapp;
 
         import com.google.android.gms.common.ConnectionResult;
         import com.google.android.gms.common.GoogleApiAvailability;

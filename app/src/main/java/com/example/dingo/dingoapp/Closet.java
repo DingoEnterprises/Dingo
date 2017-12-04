@@ -1,4 +1,4 @@
-package com.example.bim.dingo;
+package com.example.dingo.dingoapp;
 
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
