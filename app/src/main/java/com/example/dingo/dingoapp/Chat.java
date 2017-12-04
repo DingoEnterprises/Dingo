@@ -103,11 +103,11 @@ public class Chat extends AppCompatActivity {
 
         if(type == 1) {
             lp2.gravity = Gravity.LEFT;
-            txtView.setBackgroundResource(R.drawable.bluebox);
+           // txtView.setBackgroundResource(R.drawable.bluebox);
         }
         else{
             lp2.gravity = Gravity.RIGHT;
-            txtView.setBackgroundResource(R.drawable.redbox);
+            //txtView.setBackgroundResource(R.drawable.redbox);
         }
         txtView.setLayoutParams(lp2);
         layout.addView(txtView);
@@ -115,4 +115,3 @@ public class Chat extends AppCompatActivity {
     }
     }
 
-}
