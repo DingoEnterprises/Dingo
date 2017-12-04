@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -37,6 +38,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -58,9 +61,20 @@ public class MainTaskActivity extends Activity implements  NavigationView.OnNavi
     FirebaseAuth mAuth;
     FirebaseAuth.AuthStateListener mAuthListener;
 
+
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        if (acct != null) {
+            String personName = acct.getDisplayName();
+            String personGivenName = acct.getGivenName();
+            String personFamilyName = acct.getFamilyName();
+            String personEmail = acct.getEmail();
+            String personId = acct.getId();
+            Uri personPhoto = acct.getPhotoUrl();
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -90,7 +104,16 @@ public class MainTaskActivity extends Activity implements  NavigationView.OnNavi
                 (getFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener= new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                //If no account then go back to login screen
+                if (firebaseAuth.getCurrentUser()==null){
+                    startActivity(new Intent(MainTaskActivity.this, LoginActivity.class));
+                }
+            }
+        };
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
