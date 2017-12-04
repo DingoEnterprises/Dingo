@@ -48,13 +48,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:11.0.4'
     compile 'com.google.firebase:firebase-auth:11.0.4'
     compile 'com.google.android.gms:play-services-auth:11.0.4'
-}
 
 
-
-
-
->>>>>>> fcbe3b16f89d146ded53af285c62d7f974dc98ba
 
     compile 'com.google.android.gms:play-services-auth:11.0.4'
     compile 'pub.devrel:easypermissions:0.3.0'
