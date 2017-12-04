@@ -40,7 +40,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInApi;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -53,7 +52,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class MainTaskActivity extends Activity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainTaskActivity extends Activity implements  NavigationView.OnNavigationItemSelectedListener{
     FloatingActionButton addTaskButton;
     DatabaseReference databaseTasks;
     TaskList taskAdapter;
@@ -66,6 +65,15 @@ public class MainTaskActivity extends Activity implements NavigationView.OnNavig
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        if (acct != null) {
+            String personName = acct.getDisplayName();
+            String personGivenName = acct.getGivenName();
+            String personFamilyName = acct.getFamilyName();
+            String personEmail = acct.getEmail();
+            String personId = acct.getId();
+            Uri personPhoto = acct.getPhotoUrl();
+        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_list);
@@ -91,15 +99,7 @@ public class MainTaskActivity extends Activity implements NavigationView.OnNavig
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-        if (acct != null) {
-            String personName = acct.getDisplayName();
-            String personGivenName = acct.getGivenName();
-            String personFamilyName = acct.getFamilyName();
-            String personEmail = acct.getEmail();
-            String personId = acct.getId();
-            Uri personPhoto = acct.getPhotoUrl();
-        }
+
         final FixedTabsPagerAdapter adapter = new FixedTabsPagerAdapter
                 (getFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
