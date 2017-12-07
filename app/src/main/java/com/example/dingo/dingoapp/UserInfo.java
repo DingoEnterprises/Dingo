@@ -8,4 +8,11 @@ public class UserInfo {
     static String user = "";
     static String pass = "";
     static String chatWith = "";
+
+    private String firstName;
+    private String lastName;
+    private String email;
+    private boolean isAdmin;
+
+    public String getEmail(){return this.email;}
 }
