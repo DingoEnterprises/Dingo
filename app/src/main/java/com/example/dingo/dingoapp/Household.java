@@ -8,6 +8,19 @@ import java.util.ArrayList;
 
 public class Household {
     private ArrayList<String> emails;
-    public String name;
+    private String name;
+
+    public Household(String name){
+        this.name=name;
+    }
+    public void addUser(String email){
+        emails.add(email);
+    }
+    public boolean hasUser(String email){
+        return emails.contains(email);
+    }
+    public String getName(){
+        return name;
+    }
 
 }
