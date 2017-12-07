@@ -174,8 +174,10 @@ public class MainTaskActivity extends Activity implements NavigationView.OnNavig
         viewTextDueDate.setText(task.getTaskduedate());
         viewTextDescription.setText(task.getTaskdescription());
 
-        String assigneeImage = assignee.getProfilePicId();
-        viewImageAssignee.setImageResource(R.drawable.assigneeImage); //?
+        viewImageAssignee.setImageResource(R.drawable.a1)
+
+        //String assigneeImage = assignee.getProfilePicId();
+        //viewImageAssignee.setImageResource(R.drawable.assigneeImage); //?
 
         String[] taskStatus = new String[4];
         taskStatus[0] = "Not Started";
