@@ -69,7 +69,7 @@ public class ListHousehold extends AppCompatActivity implements NavigationView.O
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
                 Intent editorLaunchInterest = new Intent(getApplicationContext(), MainTaskActivity.class);
-                editorLaunchInterest.putExtra("household",position);
+                editorLaunchInterest.putExtra("household",households.get(position).getName());
                 //editorLaunchInterest.putExtra("name",choreList[position]);
                 startActivityForResult(editorLaunchInterest, 0);
             }
