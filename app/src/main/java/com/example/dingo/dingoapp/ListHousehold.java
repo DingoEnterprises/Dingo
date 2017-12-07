@@ -94,6 +94,7 @@ public class ListHousehold extends AppCompatActivity implements NavigationView.O
     protected void onStart() {
 
         super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
         databaseHouseholds.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -118,6 +119,7 @@ public class ListHousehold extends AppCompatActivity implements NavigationView.O
             }
         });
     }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 

@@ -63,6 +63,7 @@ public class MainTaskActivity extends Activity implements NavigationView.OnNavig
     FirebaseAuth.AuthStateListener mAuthListener;
     GoogleSignInAccount acct;
 
+
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -378,6 +379,7 @@ public class MainTaskActivity extends Activity implements NavigationView.OnNavig
     protected  void onStart(){
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
+
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
