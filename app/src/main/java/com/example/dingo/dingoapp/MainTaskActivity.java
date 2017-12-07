@@ -61,7 +61,7 @@ public class MainTaskActivity extends Activity implements NavigationView.OnNavig
     DrawerLayout drawerLayout;
     FirebaseAuth mAuth;
     FirebaseAuth.AuthStateListener mAuthListener;
-
+    GoogleSignInAccount acct;
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -169,12 +169,13 @@ public class MainTaskActivity extends Activity implements NavigationView.OnNavig
         System.out.println("Test3");
         final View dialogView = inflater.inflate(R.layout.view_task_dialog, null);
         dialogBuilder.setView(dialogView);
-
+        final TextView viewCreatedBy = (TextView) dialogView.findViewById(R.id.viewCreatedBy2);
         final TextView viewTextTitle = (TextView) dialogView.findViewById(R.id.viewTitle);
         final TextView viewTextDueDate  = (TextView) dialogView.findViewById(R.id.viewDueDate);
         final TextView viewTextStatus = (TextView) dialogView.findViewById(R.id.viewStatus);
         final TextView viewTextDescription = (TextView) dialogView.findViewById(R.id.viewDescription);
         final ImageView viewImageAssignee = (ImageView) dialogView.findViewById(R.id.imageViewAssignee);
+        viewCreatedBy.setText(task.getTaskcreatedby());
         viewTextTitle.setText(task.getTasktitle());
         viewTextDueDate.setText(task.getTaskduedate());
         viewTextDescription.setText(task.getTaskdescription());
@@ -214,7 +215,7 @@ public class MainTaskActivity extends Activity implements NavigationView.OnNavig
 
     }
 
-    private void updateTask(final MyTask task, Context context,UserInfo user) {
+    private void updateTask(final MyTask task, Context context, UserInfo user) {
 
         if (user.getIsAdmin() == true) {
 
@@ -342,10 +343,11 @@ public class MainTaskActivity extends Activity implements NavigationView.OnNavig
                 int statussel = spinnerStatus.getSelectedItemPosition();
                 String description = editTextDescription.getText().toString().trim();
                 String email = "sampleimail@gmail.com";
+                String createdBy = acct.getDisplayName();
                 if (!TextUtils.isEmpty(title)) {
                     String id = databaseTasks.push().getKey();
 
-                    MyTask task = new MyTask(id, title, description, dueDate, statussel, email); //add email
+                    MyTask task = new MyTask(id, title, description, dueDate, statussel,createdBy, email); //add email
 
                     databaseTasks.child(id).setValue(task);
                     b.dismiss();
