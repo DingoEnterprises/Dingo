@@ -214,9 +214,9 @@ public class MainTaskActivity extends Activity implements NavigationView.OnNavig
 
     }
 
-    private void updateTask(final MyTask task, Context context) { //need a class called User  , User user
+    private void updateTask(final MyTask task, Context context,UserInfo user) {
 
-       // if (user.isAdmin == true) {
+        if (user.getIsAdmin() == true) {
 
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context)
@@ -286,10 +286,10 @@ public class MainTaskActivity extends Activity implements NavigationView.OnNavig
 
         }
 
-       // else {
-            //Toast.makeText(this, "You must be an admin to edit this task", Toast.LENGTH_LONG).show();
+        else {
+            Toast.makeText(this, "You must be an admin to edit this task", Toast.LENGTH_LONG).show();
 
-      //  }
+        }
    // }
 
 
