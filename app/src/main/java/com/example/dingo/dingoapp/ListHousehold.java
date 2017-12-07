@@ -127,9 +127,11 @@ public class ListHousehold extends AppCompatActivity implements NavigationView.O
             case R.id.logout:
                 mAuth.signOut();
             case R.id.nav_households:
-                Intent editorLaunchInterest = new Intent(getApplicationContext(), ListHousehold.class);
-                startActivityForResult(editorLaunchInterest, 0);
-
+                Intent households = new Intent(getApplicationContext(), ListHousehold.class);
+                startActivityForResult(households, 0);
+            case R.id.manageHousehold:
+                Intent manage = new Intent(getApplicationContext(), ManageHouseholdActivity.class);
+                startActivityForResult(manage, 0);
 
         }
         drawerLayout.closeDrawer(GravityCompat.START);
