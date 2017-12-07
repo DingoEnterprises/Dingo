@@ -25,11 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PeopleActivity" />
         <activity
             android:name=".MainTaskActivity"
             android:exported="true" />
-        <activity android:name=".Chat" />
         <activity
             android:name=".ListHousehold"
             android:label="@string/title_activity_list_household"
