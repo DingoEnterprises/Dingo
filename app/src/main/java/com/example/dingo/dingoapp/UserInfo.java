@@ -1,5 +1,10 @@
 package com.example.dingo.dingoapp;
 
+import android.net.Uri;
+
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+
 /**
  * Created by Sherry Wang on 2017-11-23.
  */
@@ -9,14 +14,27 @@ public class UserInfo {
     static String pass = "";
     static String chatWith = "";
 
-    private String firstName;
-    private String lastName;
+    private String id;
+    private String name;
+    private String givenName;
+    private String familyName;
     private String email;
+    private Uri profilePhoto;
     private boolean isAdmin;
     private int numberOfStars;
     private String profilePicId;
 
-    public UserInfo() {
+    //GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+
+    public UserInfo(GoogleSignInAccount acct) {
+        if (acct != null) {
+            name = acct.getDisplayName();
+            givenName = acct.getGivenName();
+            familyName = acct.getFamilyName();
+            email = acct.getEmail();
+            id = acct.getId();
+            profilePhoto = acct.getPhotoUrl();
+        }
     }
 
     public String getEmail(){return this.email;}
