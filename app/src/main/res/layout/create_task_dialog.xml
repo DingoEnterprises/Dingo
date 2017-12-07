@@ -21,6 +21,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Title"
+                android:paddingTop="20dp"
+                android:paddingLeft="5dp"
                 android:inputType="textPersonName"
                 android:textSize="20dp" />
 
@@ -31,7 +33,7 @@
                 android:ems="10"
                 android:hint="Date"
                 android:inputType="date"
-
+                android:paddingLeft="5dp"
                 android:textSize="20dp" />
         </LinearLayout>
 
@@ -39,20 +41,42 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
-            <QuickContactBadge
-                android:id="@+id/quickContactBadge2"
+
+            <ImageView
+                android:id="@+id/imageViewAssignee"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:clickable="false"
-                app:srcCompat="@drawable/a1" />
+                app:srcCompat="@mipmap/ic_assignment_black_24dp" />
         </LinearLayout>
 
     </LinearLayout>
-    <Space
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="20dp" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Assignee"
+            android:ems="10"
+            android:paddingLeft="10dp"
+            android:textSize="20dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerAssignee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:entries="@array/array_name"
+            android:textSize="20dp"/>
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -67,7 +91,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:text="Status"
-
+            android:paddingLeft="10dp"
             android:textSize="20dp" />
 
         <Spinner

@@ -17,13 +17,14 @@ public class MyTask {
     private String[] taskstatus; //enumeration: late, notStarted, complete, inProgess
     private int taskstatussel;
     private String taskduedate;
+    private String taskcreatedby;
     private String taskassigneeemail;
 
 
     public MyTask() {}
 
     //For the Database
-    public MyTask(String id, String title, String description, String duedate, int statussel, String assigneeemail) {
+    public MyTask(String id, String title, String description, String duedate, int statussel, String createdby, String assigneeemail) {
 
         taskid = id;
         tasktitle = title;
@@ -36,6 +37,7 @@ public class MyTask {
         taskstatus[3] = "Late";
         taskstatussel = statussel;
         taskassigneeemail = assigneeemail;
+        taskcreatedby = createdby;
     }
 
 
@@ -68,7 +70,8 @@ public class MyTask {
             }
         }
     }
-
+    public String getTaskcreatedby() {return taskcreatedby;}
+    public void setTaskcreatedby(String name) {taskcreatedby = name;}
 }
 //End
 
