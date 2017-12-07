@@ -29,7 +29,7 @@ public class HouseholdAdapter extends ArrayAdapter {
         //ImageView choreImage = (ImageView) rowView.findViewById(R.id.household_image);
 
         choreNameTextField.setText(myHouseholds[position]);
-        choreDescriptionTextField.setText(position);
+        choreDescriptionTextField.setText("Household " + position);
 
 
         return rowView;

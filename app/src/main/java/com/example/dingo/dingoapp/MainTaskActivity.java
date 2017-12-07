@@ -439,6 +439,11 @@ public class MainTaskActivity extends Activity implements NavigationView.OnNavig
         switch (id){
             case R.id.logout:
                 mAuth.signOut();
+            case R.id.nav_households:
+                Intent editorLaunchInterest = new Intent(getApplicationContext(), ListHousehold.class);
+                startActivityForResult(editorLaunchInterest, 0);
+
+
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
