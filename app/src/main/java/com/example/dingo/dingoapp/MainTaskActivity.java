@@ -91,8 +91,9 @@ public class MainTaskActivity extends Activity implements NavigationView.OnNavig
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-        if (acct != null) {
+
+        //GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this); //moved to class UserInfo
+        /*if (acct != null) {
             String personName = acct.getDisplayName();
             String personGivenName = acct.getGivenName();
             String personFamilyName = acct.getFamilyName();
@@ -100,6 +101,8 @@ public class MainTaskActivity extends Activity implements NavigationView.OnNavig
             String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
         }
+        */
+
         final FixedTabsPagerAdapter adapter = new FixedTabsPagerAdapter
                 (getFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
@@ -174,7 +177,7 @@ public class MainTaskActivity extends Activity implements NavigationView.OnNavig
         viewTextDueDate.setText(task.getTaskduedate());
         viewTextDescription.setText(task.getTaskdescription());
 
-        viewImageAssignee.setImageResource(R.drawable.a1)
+        viewImageAssignee.setImageResource(R.drawable.a1);
 
         //String assigneeImage = assignee.getProfilePicId();
         //viewImageAssignee.setImageResource(R.drawable.assigneeImage); //?
@@ -214,78 +217,76 @@ public class MainTaskActivity extends Activity implements NavigationView.OnNavig
         //if (user.getIsAdmin() == true) {
 
 
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context)
-                    .setPositiveButton("Update", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context)
+                .setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                        }
-                    }).setNegativeButton("Delete", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-
-                        }
-                    }).setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-
-                        }
-                    });
-
-            System.out.println("Test2");
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            System.out.println("Test3");
-            final View dialogView = inflater.inflate(R.layout.update_task_dialog, null);
-            dialogBuilder.setView(dialogView);
-
-            final EditText editTextTitle = (EditText) dialogView.findViewById(R.id.editTextTitle);
-            final EditText editTextDueDate = (EditText) dialogView.findViewById(R.id.editTextDueDate);
-            final Spinner spinnerStatus = (Spinner) dialogView.findViewById(R.id.spinnerStatus);
-            final EditText editTextDescription = (EditText) dialogView.findViewById(R.id.editTextDescription);
-            final Spinner spinnerAssignee = (Spinner) dialogView.findViewById(R.id.spinnerAssignee);
-            final ImageView imageAssignee = (ImageView) dialogView.findViewById(R.id.imageViewAssignee);
-            dialogBuilder.setTitle("Update Task");
-            final AlertDialog b = dialogBuilder.create();
-            b.getWindow().setLayout(1080, 1080);
-            b.show();
-
-            b.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    MyTask passOnTask = task;
-                    passOnTask.setTasktitle(editTextTitle.getText().toString().trim());
-                    passOnTask.setTaskduedate(editTextDueDate.getText().toString().trim());
-                    passOnTask.sTaskstatus(spinnerStatus.getSelectedItemPosition());
-                    passOnTask.setTaskdescription(editTextDescription.getText().toString().trim());
-                    if (!TextUtils.isEmpty(editTextTitle.getText().toString().trim())) {
-                        update(passOnTask);
-                        b.dismiss();
-                        // Toast.makeText(this, "Product added", Toast.LENGTH_LONG).show();
-                    } else {
-                        //Toast.makeText(this, "Please enter a name", Toast.LENGTH_LONG).show();
                     }
+                }).setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
+                    }
+                }).setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                }
-            });
-            b.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    MyTask passOnTask = task;
-                    delete(passOnTask);
+                    }
+                });
+
+        System.out.println("Test2");
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        System.out.println("Test3");
+        final View dialogView = inflater.inflate(R.layout.update_task_dialog, null);
+        dialogBuilder.setView(dialogView);
+
+        final EditText editTextTitle = (EditText) dialogView.findViewById(R.id.editTextTitle);
+        final EditText editTextDueDate = (EditText) dialogView.findViewById(R.id.editTextDueDate);
+        final Spinner spinnerStatus = (Spinner) dialogView.findViewById(R.id.spinnerStatus);
+        final EditText editTextDescription = (EditText) dialogView.findViewById(R.id.editTextDescription);
+        final Spinner spinnerAssignee = (Spinner) dialogView.findViewById(R.id.spinnerAssignee);
+        final ImageView imageAssignee = (ImageView) dialogView.findViewById(R.id.imageViewAssignee);
+        dialogBuilder.setTitle("Update Task");
+        final AlertDialog b = dialogBuilder.create();
+        b.getWindow().setLayout(1080, 1080);
+        b.show();
+
+        b.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyTask passOnTask = task;
+                passOnTask.setTasktitle(editTextTitle.getText().toString().trim());
+                passOnTask.setTaskduedate(editTextDueDate.getText().toString().trim());
+                passOnTask.sTaskstatus(spinnerStatus.getSelectedItemPosition());
+                passOnTask.setTaskdescription(editTextDescription.getText().toString().trim());
+                if (!TextUtils.isEmpty(editTextTitle.getText().toString().trim())) {
+                    update(passOnTask);
                     b.dismiss();
-
-
+                    // Toast.makeText(this, "Product added", Toast.LENGTH_LONG).show();
+                } else {
+                    //Toast.makeText(this, "Please enter a name", Toast.LENGTH_LONG).show();
                 }
-            });
 
-        }
+
+            }
+        });
+        b.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyTask passOnTask = task;
+                delete(passOnTask);
+                b.dismiss();
+
+
+            }
+        });
 
         //else {
         //    Toast.makeText(this, "You must be an admin to edit this task", Toast.LENGTH_LONG).show();
 
         //}
-   // }
+    }
 
 
     public void createTask() {
