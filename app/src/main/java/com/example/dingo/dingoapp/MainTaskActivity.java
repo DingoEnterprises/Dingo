@@ -119,18 +119,13 @@ public class MainTaskActivity extends Activity implements NavigationView.OnNavig
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
             }
-
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
-
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
-
     }
 
     @Override
@@ -141,7 +136,6 @@ public class MainTaskActivity extends Activity implements NavigationView.OnNavig
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -179,7 +173,12 @@ public class MainTaskActivity extends Activity implements NavigationView.OnNavig
         viewTextTitle.setText(task.getTasktitle());
         viewTextDueDate.setText(task.getTaskduedate());
         viewTextDescription.setText(task.getTaskdescription());
-        viewImageAssignee.setImageResource(R.drawable.a1); ///change this later
+
+        viewImageAssignee.setImageResource(R.drawable.a1)
+
+        //String assigneeImage = assignee.getProfilePicId();
+        //viewImageAssignee.setImageResource(R.drawable.assigneeImage); //?
+
         String[] taskStatus = new String[4];
         taskStatus[0] = "Not Started";
         taskStatus[1] = "In Progress";
@@ -195,29 +194,24 @@ public class MainTaskActivity extends Activity implements NavigationView.OnNavig
             @Override
             public void onClick(View view) {
                 MyTask passOnTask = task;
-                updateTask(passOnTask, context);
+                updateTask(passOnTask,context);
                 b.dismiss();
-
-
-
             }
         });
         b.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 MyTask passOnTask = task;
                 delete(passOnTask);
                 b.dismiss();
-
                 }
         });
 
     }
 
-    private void updateTask(final MyTask task, Context context, UserInfo user) {
+    private void updateTask(final MyTask task, Context context) {
 
-        if (user.getIsAdmin() == true) {
+        //if (user.getIsAdmin() == true) {
 
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context)
@@ -287,10 +281,10 @@ public class MainTaskActivity extends Activity implements NavigationView.OnNavig
 
         }
 
-        else {
-            Toast.makeText(this, "You must be an admin to edit this task", Toast.LENGTH_LONG).show();
+        //else {
+        //    Toast.makeText(this, "You must be an admin to edit this task", Toast.LENGTH_LONG).show();
 
-        }
+        //}
    // }
 
 
@@ -322,8 +316,6 @@ public class MainTaskActivity extends Activity implements NavigationView.OnNavig
         final EditText editTextDueDate  = (EditText) dialogView.findViewById(R.id.editTextDueDate);
         final Spinner spinnerStatus = (Spinner) dialogView.findViewById(R.id.spinnerStatus);
         final EditText editTextDescription = (EditText) dialogView.findViewById(R.id.editTextDescription);
-
-       // final ImageView profilePic = (ImageView)findViewById(R.id.profilePic);   ///added by Ash
 
         dialogBuilder.setTitle("Create Task");
         final AlertDialog b = dialogBuilder.create();
@@ -368,52 +360,6 @@ public class MainTaskActivity extends Activity implements NavigationView.OnNavig
         });
 
     }
-
-
-    //method to be called by createTask and updateTask!!!
-    public void setTaskAssigneeImage(View view) { //need to access the list of users to set the correct image
-        Intent returnIntent = new Intent();
-        ImageView selectedImage = (ImageView) view;
-        returnIntent.putExtra("imageID", selectedImage.getId());
-        setResult(RESULT_OK, returnIntent);
-        finish();
-    }
-
-   /* @Override ///added by Ash
-
-    protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
-        if (resultCode == RESULT_CANCELED) return;
-        ImageView assigneeImage = (ImageView) findViewById(R.id.assigneeImage); //assigneeImage exists in layout_task_list
-
-        //ACCESS LIST_OF_IMAGES ACTIVITY and listen to for image on click
-        ListView listViewUsers;
-        listViewUsers.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                MyTask task = tasks.get(assigneeimage);
-                taskActivity.viewTask(task, getActivity());
-                return true;
-            }
-
-        //Figuring out the correct image //WE NEED A LIST_OF_IMAGES XML ACTIVITY FOR THIS
-        String drawableName = "defaultProfilePic";
-        switch (data.getIntExtra("imageID,R.id.useridDefault")) {
-            //NEED TO LIST CASES FOR EACH USER THAT EXISTS IN THE PROGRAM
-            case R.id.useridDefault: //useridDefault should exist in LIST_OF_IMAGES XML ACTIVITY
-                drawableName = "defaultProfilePic";
-                break;
-            //case R.id.userid001:
-            //  drawableName = "user001ProfilePic";
-            //  break;
-            //case R.id.userid002:
-            //  drawableName = "user002ProfilePic";
-            //  break;
-            //case R.id.userid003:
-            //  drawableName = "user003ProfilePic";
-            //  break;
-        }
-        int resultID = getResources().getIdentifier(drawableName, "drawable", getPackageName());
-        assigneeImage.setImageResource(resultID);
-    }*/
 
     private void delete(MyTask task) {
         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("tasks").child(task.getTaskid());

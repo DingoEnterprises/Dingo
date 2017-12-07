@@ -13,7 +13,14 @@ public class UserInfo {
     private String lastName;
     private String email;
     private boolean isAdmin;
+    private int numberOfStars;
+    private String profilePicId;
+
+    public UserInfo() {
+    }
 
     public String getEmail(){return this.email;}
     public boolean getIsAdmin(){return this.isAdmin;}
+    public int getNumberOfStars(){return this.numberOfStars;}
+    public String getProfilePicId() {return this.profilePicId;}
 }
