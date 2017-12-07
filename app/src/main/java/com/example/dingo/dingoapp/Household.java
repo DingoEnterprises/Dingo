@@ -16,7 +16,7 @@ public class Household {
 
     public void addUser(UserInfo user){emails.add(user.getEmail());}
     //public void addUser(String email){emails.add(email);}
-    
+
     public boolean hasUser(String email){
         return emails.contains(email);
     }

@@ -15,4 +15,5 @@ public class UserInfo {
     private boolean isAdmin;
 
     public String getEmail(){return this.email;}
+    public boolean getIsAdmin(){return this.isAdmin;}
 }
