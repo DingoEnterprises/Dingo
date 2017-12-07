@@ -119,18 +119,13 @@ public class MainTaskActivity extends Activity implements NavigationView.OnNavig
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
             }
-
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
-
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
-
     }
 
     @Override
@@ -141,11 +136,10 @@ public class MainTaskActivity extends Activity implements NavigationView.OnNavig
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         return super.onOptionsItemSelected(item);
     }
 
-    public void viewTask(final MyTask task, final Context context, UserInfo assignee) {
+    public void viewTask(final MyTask task, final Context context) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context)
                 .setPositiveButton("Edit", new DialogInterface.OnClickListener() {
                     @Override
@@ -213,9 +207,9 @@ public class MainTaskActivity extends Activity implements NavigationView.OnNavig
 
     }
 
-    private void updateTask(final MyTask task, Context context, UserInfo user) {
+    private void updateTask(final MyTask task, Context context) {
 
-        if (user.getIsAdmin() == true) {
+        //if (user.getIsAdmin() == true) {
 
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context)
@@ -285,10 +279,10 @@ public class MainTaskActivity extends Activity implements NavigationView.OnNavig
 
         }
 
-        else {
-            Toast.makeText(this, "You must be an admin to edit this task", Toast.LENGTH_LONG).show();
+        //else {
+        //    Toast.makeText(this, "You must be an admin to edit this task", Toast.LENGTH_LONG).show();
 
-        }
+        //}
    // }
 
 
