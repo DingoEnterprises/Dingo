@@ -69,7 +69,7 @@ public class ListHousehold extends AppCompatActivity implements NavigationView.O
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
                 Intent editorLaunchInterest = new Intent(getApplicationContext(), MainTaskActivity.class);
-                editorLaunchInterest.putExtra("household",position);
+                editorLaunchInterest.putExtra("household",households.get(position).getName());
                 //editorLaunchInterest.putExtra("name",choreList[position]);
                 startActivityForResult(editorLaunchInterest, 0);
             }
@@ -94,6 +94,7 @@ public class ListHousehold extends AppCompatActivity implements NavigationView.O
     protected void onStart() {
 
         super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
         databaseHouseholds.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -118,6 +119,7 @@ public class ListHousehold extends AppCompatActivity implements NavigationView.O
             }
         });
     }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
@@ -127,9 +129,11 @@ public class ListHousehold extends AppCompatActivity implements NavigationView.O
             case R.id.logout:
                 mAuth.signOut();
             case R.id.nav_households:
-                Intent editorLaunchInterest = new Intent(getApplicationContext(), ListHousehold.class);
-                startActivityForResult(editorLaunchInterest, 0);
-
+                Intent households = new Intent(getApplicationContext(), ListHousehold.class);
+                startActivityForResult(households, 0);
+            case R.id.manageHousehold:
+                Intent manage = new Intent(getApplicationContext(), ManageHouseholdActivity.class);
+                startActivityForResult(manage, 0);
 
         }
         drawerLayout.closeDrawer(GravityCompat.START);

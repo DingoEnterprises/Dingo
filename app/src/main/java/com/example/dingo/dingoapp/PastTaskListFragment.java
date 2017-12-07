@@ -89,7 +89,9 @@ public class PastTaskListFragment extends Fragment {
                 tasks.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     MyTask task = postSnapshot.getValue(MyTask.class);
-                    tasks.add(task);
+                    if(task.gTaskstatus(task.getTaskstatussel()) == "Complete") {
+                        tasks.add(task);
+                    }
 
                 }
                 TaskList taskAdapter = new TaskList(getActivity(), tasks);
