@@ -34,7 +34,8 @@
             android:name=".ListHousehold"
             android:label="@string/title_activity_list_household"
             android:theme="@style/AppTheme" />
-        <activity android:name=".CreateHousehold"></activity>
+        <activity android:name=".CreateHousehold" />
+        <activity android:name=".ManageHouseholdActivity"></activity>
     </application>
 
 </manifest>
